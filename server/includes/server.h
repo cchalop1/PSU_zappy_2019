@@ -35,9 +35,33 @@
 #define BUFFER_SIZE 5000
 // #define NB_COMMANDS 8
 
+enum stone_e {
+    LINEMATE
+    , DERAUMERE
+    , SIBUR
+    , MENDIANE
+    , PHIRAS
+    , THYSTAME
+};
+
+typedef struct player_s {
+    int team;
+    int level;
+    char *name;
+    int life;
+    int pos_x;
+    int pos_y;
+    int inventory[6];
+} player_t;
+
+typedef struct tile_s {
+
+} tile_t;
+
 typedef struct map_s {
     int x_max;
     int y_max;
+    tile_t *tile;
 } map_t;
 
 typedef struct server_s {
