@@ -100,3 +100,23 @@ Incantation:
     <- Elevation underway
     <- Current level:k
     <- / ko
+
+
+//Protocole Graphique
+
+login:
+    <--WELCOME
+    -->GRAPHIC
+    <--CLIENT-NUM
+    <-- X Y
+
+list symboles:
+    X   width or horizontal position
+    Y   height or vertical position
+    q   resources quantity
+    n   player number
+    O   orientation: 1(N), 2(E), 3(S), 4(W)
+    L   player or incantation level
+    e   egg number
+    N   name of the team
+    M   message
