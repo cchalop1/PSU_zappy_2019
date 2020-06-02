@@ -1,0 +1,122 @@
+Zappy
+
+Protocole
+
+list commande:
+    Forward
+    Right
+    Left
+    Look
+    Inventory
+    Broadcast text
+    Connect_nbr
+    Fork
+    Eject
+    Take object
+    Set object
+    Incantation
+
+
+client to sevrer ->
+server to client <-
+
+
+login:
+    <--WELCOME
+    -->TEAM-NAME
+    <--CLIENT-NUM
+    <-- X Y
+
+Forward:
+    move up one tile
+    commande_client: Forward
+    -> Forward
+    <- ok
+
+Right:
+    turn 90o right
+    commande_client: Right
+    -> Right
+    <- ok
+
+Left:
+    turn 90o left
+    commande_client: Left
+    -> Left
+    <- ok
+
+Look:
+    look around
+    commande_client: Look
+    -> Look
+    <- [tile1, tile2,. . . ]
+
+Inventory:
+    inventory
+    commande_client: Inventory
+    -> Inventory
+    <- [linemate n, sibur n,. . . ]
+
+Connect_nbr:
+    number of team unused slots
+    commande_client: Connect_nbr
+    -> Connect_nbr
+    <- value
+
+Fork:
+    fork a player
+    commande_client: Fork
+    -> Fork
+    <- ok
+
+Eject:
+    eject players from this tile
+    commande_client: Eject
+    -> Eject
+    <- ok/ko
+
+-:
+    death of a player
+    commande_client: -
+    -> -
+    <- dead
+
+Take object:
+    take object
+    commande_client: Take object
+    -> Take object
+    <- ok/ko
+
+Set object:
+    set object down
+    commande_client: Set object
+    -> Set object
+    <- ok/ko
+
+Incantation:
+    start incantation
+    commande_client: Incantation
+    -> Incantation
+    <- Elevation underway
+    <- Current level:k
+    <- / ko
+
+
+//Protocole Graphique
+
+login:
+    <--WELCOME
+    -->GRAPHIC
+    <--CLIENT-NUM
+    <-- X Y
+
+list symboles:
+    X   width or horizontal position
+    Y   height or vertical position
+    q   resources quantity
+    n   player number
+    O   orientation: 1(N), 2(E), 3(S), 4(W)
+    L   player or incantation level
+    e   egg number
+    N   name of the team
+    M   message
