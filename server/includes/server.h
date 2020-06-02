@@ -40,11 +40,12 @@ typedef struct map_s {
 } map_t;
 
 typedef struct server_s {
-    char *ip;
+    char* ip;
     int port;
     int clients_nb;
     int sockfd;
     int freq;
+    char** clients_name;
     map_t map;
 } server_t;
 

@@ -21,7 +21,7 @@ static void print_help(void)
     exit(EXIT_SUCCESS);
 }
 
-static int fill_server_struct(server_t* server, int opt)
+static int fill_server_struct(server_t* server, int opt, const char** argv)
 {
     switch (opt) {
     case 'p':
@@ -35,13 +35,15 @@ static int fill_server_struct(server_t* server, int opt)
         break;
     case 'c':
         server->clients_nb = atoi(optarg);
+        server->clients_name = malloc(sizeof(char*) * server->clients_nb);
         break;
     case 'f':
         server->freq = atoi(optarg);
         break;
     case 'n':
-        // TODO: parsing for list name client
-        // clientnb
+        for (int count = 0;
+            count + (optind - 1) < (server->clients_nb + (optind - 1)); count++)
+            server->clients_name[count] = strdup(argv[count + (optind - 1)]);
         break;
     default:
         print_help();
@@ -55,7 +57,7 @@ server_t parse_server_input(int argc, const char** argv)
 
     server.ip = "127.0.0.1";
     while ((opt = getopt(argc, (char** const)argv, "p:x:y:n:c:f:")) != -1) {
-        fill_server_struct(&server, opt);
+        fill_server_struct(&server, opt, argv);
     }
     return server;
 }
