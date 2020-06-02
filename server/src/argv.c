@@ -21,6 +21,7 @@ static void print_help(void)
     exit(EXIT_SUCCESS);
 }
 
+// TODO: norm
 static int fill_server_struct(server_t* server, int opt, const char** argv)
 {
     switch (opt) {

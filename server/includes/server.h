@@ -25,6 +25,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <uuid/uuid.h>
+#include <poll.h>
 
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
