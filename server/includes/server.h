@@ -70,8 +70,9 @@ typedef struct server_s {
     int clients_nb;
     int sockfd;
     int freq;
-    char** clients_name;
+    char** team_names;
     map_t map;
+    struct pollfd* fds;
 } server_t;
 
 // argv

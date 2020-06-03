@@ -37,13 +37,13 @@ const start_server = () => {
     client = new net.Socket();
     client.connect(OPTION.port, OPTION.machine, () => {
         console.log('Connected to server')
-        // client.write('Hello, server! Love, Client.')
     })
 }
 
 
 argv_parcing()
 start_server()
+client.write(OPTION.name)
 
 
 
