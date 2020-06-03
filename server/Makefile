@@ -12,7 +12,7 @@ SRC = 	$(wildcard ./src/*.c)
 
 CC = gcc
 
-CFLAGS = -W -Wextra -I./includes/
+CFLAGS = -W -Wextra -I./includes/ -g3
 
 NAME = ../zappy_server
 
