@@ -25,10 +25,13 @@ const argv_parcing = () => {
                 print_help()
             case '-p':
                 OPTION.port = Number(argv[idx + 1])
+                break
             case '-n':
                 OPTION.name = argv[idx + 1]
+                break
             case '-h':
                 OPTION.machine = argv[idx + 1]
+                break
         }
     })
 }

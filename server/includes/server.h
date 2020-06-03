@@ -46,7 +46,7 @@ typedef struct player_s {
     int pos_x;
     int pos_y;
     int inventory[6];
-    struct player_s *next;
+    struct player_s* next;
 } player_t;
 
 typedef struct tile_s {
@@ -66,7 +66,7 @@ typedef struct server_s {
     int sockfd;
     int freq;
     char** team_names;
-    player_t *players;
+    player_t* players;
     map_t map;
     struct pollfd fds[MAX_CLIENTS];
     int nb_fd;
@@ -89,7 +89,7 @@ int create_server(server_t* server);
 int start_server(server_t* server);
 
 // client
-player_t *new_client(server_t *, int);
+int new_client(server_t* server);
 
 // utils
 char** parse_string_delim(const char* raw_str, const char* delim_raw);

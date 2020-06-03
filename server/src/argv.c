@@ -62,6 +62,7 @@ server_t parse_server_input(int argc, const char** argv)
     server.ip = "127.0.0.1";
     server.team_names = NULL;
     server.nb_fd = 0;
+    server.players = NULL;
     while ((opt = getopt(argc, (char** const)argv, "p:x:y:n:c:f:")) != -1) {
         fill_server_struct(&server, opt, argv);
     }
