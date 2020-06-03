@@ -46,6 +46,7 @@ typedef struct player_s {
     int pos_x;
     int pos_y;
     int inventory[6];
+    struct player_s *next;
 } player_t;
 
 typedef struct tile_s {
@@ -65,8 +66,10 @@ typedef struct server_s {
     int sockfd;
     int freq;
     char** team_names;
+    player_t *players;
     map_t map;
-    struct pollfd* fds;
+    struct pollfd fds[MAX_CLIENTS];
+    int nb_fd;
 } server_t;
 
 typedef int (*exec_cmd)(server_t* server, player_t* player, char* cmd);

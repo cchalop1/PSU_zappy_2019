@@ -26,23 +26,28 @@ static int accept_client(server_t* server)
 
 int init_poll(server_t* server)
 {
-    server->fds = NULL;
-    server->fds = realloc(server->fds, sizeof(struct pollfd));
     server->fds[0].fd = server->sockfd;
     server->fds[0].events = POLLIN;
+    server->nb_fd = 1;
 }
 
 int manage_client(server_t* server)
 {
-    // TODO: nb client
-    int ret = poll(server->fds, 3, TIMEOUT);
-
+    if (poll(server->fds, server->nb_fd, TIMEOUT) == -1)
+        return EXIT_FAILURE;
     if (server->fds[0].revents & POLLIN) {
         // new client
         // TODO: realloc fds
         // fds[1].fd = accept_client(server);
         // fds[1].events = POLLIN;
         // new_client(fds[1].fd, server);
+    } else {
+        for (int i = 1; i < server->nb_fd; i++) {
+            if (server->fds[i].revents & POLLIN) {
+                // find player by fd
+                // handle cmd
+            }
+        }
     }
     return EXIT_SUCCESS;
 }
