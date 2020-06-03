@@ -85,6 +85,9 @@ server_t parse_server_input(int argc, const char** argv);
 int create_server(server_t* server);
 int start_server(server_t* server);
 
+// client
+player_t *new_client(server_t *, int);
+
 // utils
 char** parse_string_delim(const char* raw_str, const char* delim_raw);
 command_t find_command(const char* buffer, int len);

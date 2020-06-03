@@ -5,12 +5,14 @@
 ** main
 */
 
+#include <time.h>
 #include "server.h"
 
 int main(int argc, const char* argv[])
 {
     server_t server;
 
+    srand(time(NULL));
     if (parse_input(argc, (char** const)argv))
         return EXIT_ERROR;
     server = parse_server_input(argc, argv);
