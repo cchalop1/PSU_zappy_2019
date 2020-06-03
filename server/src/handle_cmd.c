@@ -34,7 +34,7 @@ command_t find_command(const char* buffer, int len)
     return COMMANDS[idx];
 }
 
-int handle_client_cmd(server_t* server, player_t* player, int fd_client)
+int handle_client_cmd(server_t* server, player_t* player)
 {
     int len = -1;
     char buffer[BUFFER_SIZE];

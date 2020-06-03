@@ -29,10 +29,21 @@ int new_client(server_t* server)
     player_t* player_copy = server->players;
 
     if (player_copy == NULL)
-        player_copy = new_client;
+        server->players = new_client;
     else {
         for (; player_copy->next; player_copy = player_copy->next)
             player_copy->next = new_client;
     }
     return EXIT_SUCCESS;
+}
+
+player_t* find_player_by_fd(server_t* server, int fd_find)
+{
+    player_t* player_copy = server->players;
+
+    for (; player_copy; player_copy = player_copy->next) {
+        if (player_copy->fd == fd_find)
+            return player_copy;
+    }
+    return NULL;
 }

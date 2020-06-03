@@ -46,7 +46,7 @@ const start_server = () => {
 
 argv_parcing()
 start_server()
-client.write(OPTION.name)
+// client.write(OPTION.name)
 
 
 
