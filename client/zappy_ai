@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+const net = require('net');
+
+let OPTION = {
+    port: -1,
+    name: '',
+    machine: ''
+}
+
+let client = undefined
+
+const print_help = () => {
+    console.log('USAGE: ./zappy_ai -p port -n name -h machine')
+    console.log('      port       is the port number')
+    console.log('      name       is the name of the team')
+    console.log('      machine    is the name of the machine; localhost by default')
+    process.exit()
+}
+
+const argv_parcing = () => {
+    const argv = process.argv.slice(2)
+    argv.forEach((param, idx) => {
+        switch (param) {
+            case '-help':
+                print_help()
+            case '-p':
+                OPTION.port = Number(argv[idx + 1])
+            case '-n':
+                OPTION.name = argv[idx + 1]
+            case '-h':
+                OPTION.machine = argv[idx + 1]
+        }
+    })
+}
+
+const start_server = () => {
+    client = new net.Socket();
+    client.connect(OPTION.port, OPTION.machine, () => {
+        console.log('Connected to server')
+        // client.write('Hello, server! Love, Client.')
+    })
+}
+
+
+argv_parcing()
+start_server()
+
+
+
+// client.on('data', (data) => {
+//     console.log('Received: ' + data);
+//     client.destroy();
+// });
+
+// client.on('close', () => {
+//     console.log('Connection closed');
+// });Nu
