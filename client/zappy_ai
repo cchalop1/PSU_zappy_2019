@@ -37,16 +37,18 @@ const argv_parcing = () => {
 }
 
 const start_server = () => {
-    client = new net.Socket();
-    client.connect(OPTION.port, OPTION.machine, () => {
-        console.log('Connected to server')
+    let socket = new net.Socket();
+    socket.connect(OPTION.port, OPTION.machine, () => {
+        socket.write('toto\n')
+        socket.on('data', (data) => {
+            console.log(data.toString())
+        })
     })
 }
 
 
 argv_parcing()
 start_server()
-// client.write(OPTION.name)
 
 
 
