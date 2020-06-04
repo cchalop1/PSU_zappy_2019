@@ -11,5 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: make
-      run: cd ../../
       run: make re
