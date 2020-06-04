@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: ci-zappy
 
 on:
   push:
@@ -14,3 +14,14 @@ jobs:
     - uses: actions/checkout@v2.2.0
     - name: make
       run: make re
+  test:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+    - uses: actions/checkout@v2.2.0
+    - name: test
+      run: |
+        cd tests
+        npm i
+        npm test
+
