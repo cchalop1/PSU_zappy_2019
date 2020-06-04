@@ -29,10 +29,10 @@ int init_poll(server_t* server)
     server->nb_fd = 1;
 }
 
-// TODO: norme
 int manage_client(server_t* server)
 {
     player_t *player = NULL;
+    
     if (poll(server->fds, server->nb_fd, 100) == -1)
         return EXIT_FAILURE;
     if (server->fds[0].revents & POLLIN) {
@@ -40,16 +40,13 @@ int manage_client(server_t* server)
         server->fds[server->nb_fd].events = POLLIN;
         new_client(server);
         server->nb_fd++;
-        printf("new client\n");
         return EXIT_SUCCESS;
     }
     for (int i = 1; i < server->nb_fd; i++) {
         if (server->fds[i].revents & POLLIN) {
             player = find_player_by_fd(server, server->fds[i].fd);
-            if (player == NULL) {
-                print_error("find player");
+            if (player == NULL)
                 return EXIT_FAILURE;
-            }
             handle_client_cmd(server, player);
         }
     }
