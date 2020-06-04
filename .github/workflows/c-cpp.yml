@@ -12,6 +12,3 @@ jobs:
     steps:
     - name: make
       run: make
-  test:
-    - name: test
-      run: echo "toto"
