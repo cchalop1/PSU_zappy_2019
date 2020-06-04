@@ -9,7 +9,7 @@
 
 int error_cmd(server_t* server, player_t* player, char* cmd)
 {
-    print_error("cmd parsing");
+    send_reply(player->fd, "ko\n");
 }
 
 int map_size(server_t* server, player_t* player, char* cmd)
