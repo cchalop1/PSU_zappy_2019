@@ -101,7 +101,6 @@ command_t find_command(const char* buffer, int len);
 void print_error(const char* messages);
 void send_reply(int fd, const char* messages);
 
-
 // cmd
 int handle_client_cmd(server_t* server, player_t* player);
 int error_cmd(server_t* server, player_t* player, char* cmd);
@@ -109,6 +108,7 @@ int map_size(server_t* server, player_t* player, char* cmd);
 int content_of_a_tile(server_t* server, player_t* player, char* cmd);
 int content_of_all_tile(server_t* server, player_t* player, char* cmd);
 int name_of_all_teams(server_t* server, player_t* player, char* cmd);
+int time_unit_request(server_t* server, player_t* player, char* cmd);
 
 // map
 void generate_map(server_t* server);
