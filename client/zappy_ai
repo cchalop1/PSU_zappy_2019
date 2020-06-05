@@ -41,24 +41,13 @@ const argv_parcing = () => {
 const start_server = () => {
     socket.connect(OPTION.port, OPTION.machine, () => {
         console.log('connect to server')
-        // socket.write('toto\n')
-        // socket.on('data', (data) => {
-        //     console.log(data.toString())
-        // })
+    })
+    socket.write('toto\n')
+    socket.on('data', (data) => {
+        console.log(data.toString())
     })
 }
 
 
 argv_parcing()
 start_server()
-
-
-
-// client.on('data', (data) => {
-//     console.log('Received: ' + data);
-//     client.destroy();
-// });
-
-// client.on('close', () => {
-//     console.log('Connection closed');
-// });Nu

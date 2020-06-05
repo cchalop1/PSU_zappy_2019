@@ -42,8 +42,11 @@ int handle_client_cmd(server_t* server, player_t* player)
 
     len = read(player->fd, buffer, BUFFER_SIZE);
     buffer[len] = 0;
-    if (len <= 0)
-        return EXIT_FAILURE;
+    if (len <= 0) {
+        // remove client
+        close(player->fd);
+        return EXIT_SUCCESS;
+    }
     cmd = find_command(buffer, len);
     if (cmd.exec(server, player, buffer))
         return EXIT_FAILURE;

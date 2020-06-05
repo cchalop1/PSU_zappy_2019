@@ -1,4 +1,5 @@
 const net = require('net')
+// const io = require('socket.io')(server);
 
 const OPTION = {
     port: 4242,
@@ -15,13 +16,20 @@ test('new client', async (done) => {
     })
 })
 
-test('cmd ko', async (done) => {
-    socket.write('toto\n')
+test('welcome client', async (done) => {
     socket.on('data', (data) => {
-        expect(data.toString()).toBe('ko\n')
+        expect(data.toString()).toBe('WELCOME\n')
         done()
     })
 })
+
+// test('cmd ko', async (done) => {
+//     socket.write('toto\n')
+//     socket.on('data', (data) => {
+//         expect(data.toString()).toBe('ko\n')
+//         done()
+//     })
+// })
 
 afterAll(done => {
     socket.destroy()

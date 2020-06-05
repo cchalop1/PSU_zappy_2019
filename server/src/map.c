@@ -34,7 +34,7 @@ static void fill_map_stones(server_t* server)
 {
     int nb_stones = (server->map.x_max * server->map.y_max) / 2;
 
-    while (nb_stones >= 0) {
+    while (nb_stones > 0) {
         for (int y = 0; y < server->map.y_max && nb_stones > 0; y++) {
             for (int x = 0; x < server->map.x_max; x++) {
                 if ((rand() % 2) == 1) {
