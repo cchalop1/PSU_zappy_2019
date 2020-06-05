@@ -50,13 +50,16 @@ typedef struct player_s {
 } player_t;
 
 typedef struct tile_s {
-
+    int stones[6];
+    int x;
+    int y;
+    bool fruit;
 } tile_t;
 
 typedef struct map_s {
     int x_max;
     int y_max;
-    tile_t* tile;
+    tile_t** tiles;
 } map_t;
 
 typedef struct server_s {
@@ -97,10 +100,15 @@ char** parse_string_delim(const char* raw_str, const char* delim_raw);
 command_t find_command(const char* buffer, int len);
 void print_error(const char* messages);
 void send_reply(int fd, const char* messages);
-    // cmd
-    int handle_client_cmd(server_t* server, player_t* player);
+
+
+// cmd
+int handle_client_cmd(server_t* server, player_t* player);
 int error_cmd(server_t* server, player_t* player, char* cmd);
 int map_size(server_t* server, player_t* player, char* cmd);
 int content_of_a_tile(server_t* server, player_t* player, char* cmd);
 int content_of_all_tile(server_t* server, player_t* player, char* cmd);
 int name_of_all_teams(server_t* server, player_t* player, char* cmd);
+
+// map
+void generate_map(server_t* server);

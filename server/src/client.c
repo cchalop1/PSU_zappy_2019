@@ -36,6 +36,7 @@ int new_client(server_t* server)
             ;
         player_copy->next = new_client;
     }
+    send_reply(server->fds[server->nb_fd].fd, "WELCOME\n");
     return EXIT_SUCCESS;
 }
 
@@ -44,7 +45,6 @@ player_t* find_player_by_fd(server_t* server, int fd_find)
     player_t* player_copy = server->players;
 
     for (; player_copy; player_copy = player_copy->next) {
-        printf("%d\n", player_copy->fd);
         if (player_copy->fd == fd_find)
             return player_copy;
     }
