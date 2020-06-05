@@ -17,6 +17,8 @@ const print_help = () => {
     process.exit()
 }
 
+let socket = new net.Socket();
+
 const argv_parcing = () => {
     const argv = process.argv.slice(2)
     argv.forEach((param, idx) => {
@@ -37,16 +39,18 @@ const argv_parcing = () => {
 }
 
 const start_server = () => {
-    client = new net.Socket();
-    client.connect(OPTION.port, OPTION.machine, () => {
-        console.log('Connected to server')
+    socket.connect(OPTION.port, OPTION.machine, () => {
+        console.log('connect to server')
+        // socket.write('toto\n')
+        // socket.on('data', (data) => {
+        //     console.log(data.toString())
+        // })
     })
 }
 
 
 argv_parcing()
 start_server()
-client.write(OPTION.name)
 
 
 

@@ -90,13 +90,15 @@ int start_server(server_t* server);
 
 // client
 int new_client(server_t* server);
+player_t* find_player_by_fd(server_t* server, int fd_find);
 
 // utils
 char** parse_string_delim(const char* raw_str, const char* delim_raw);
 command_t find_command(const char* buffer, int len);
 void print_error(const char* messages);
-
-// cmd
+void send_reply(int fd, const char* messages);
+    // cmd
+    int handle_client_cmd(server_t* server, player_t* player);
 int error_cmd(server_t* server, player_t* player, char* cmd);
 int map_size(server_t* server, player_t* player, char* cmd);
 int content_of_a_tile(server_t* server, player_t* player, char* cmd);

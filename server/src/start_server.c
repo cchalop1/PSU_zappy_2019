@@ -7,8 +7,6 @@
 
 #include "server.h"
 
-#define TIMEOUT 5000
-
 static int accept_client(server_t* server)
 {
     struct sockaddr_in client;
@@ -33,20 +31,23 @@ int init_poll(server_t* server)
 
 int manage_client(server_t* server)
 {
-    if (poll(server->fds, server->nb_fd, TIMEOUT) == -1)
+    player_t *player = NULL;
+    
+    if (poll(server->fds, server->nb_fd, 100) == -1)
         return EXIT_FAILURE;
     if (server->fds[0].revents & POLLIN) {
         server->fds[server->nb_fd].fd = accept_client(server);
         server->fds[server->nb_fd].events = POLLIN;
         new_client(server);
         server->nb_fd++;
-        printf("new client\n");
         return EXIT_SUCCESS;
     }
     for (int i = 1; i < server->nb_fd; i++) {
         if (server->fds[i].revents & POLLIN) {
-            // find player by fd
-            // handle cmd
+            player = find_player_by_fd(server, server->fds[i].fd);
+            if (player == NULL)
+                return EXIT_FAILURE;
+            handle_client_cmd(server, player);
         }
     }
     return EXIT_SUCCESS;

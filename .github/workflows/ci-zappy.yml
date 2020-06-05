@@ -1,0 +1,29 @@
+name: ci-zappy
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+    - uses: actions/checkout@v2.2.0
+    - name: make
+      run: make re
+  test:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+    - uses: actions/checkout@v2.2.0
+    - name: test
+      run: |
+        echo "start test"
+        make re ; ./zappy_server -x 10 -y 10 -c 2 -n name1 name2 -f 10 -p 4242 &
+        cd tests
+        npm i
+        npm test
+

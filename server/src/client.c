@@ -16,6 +16,7 @@ static player_t* fill_new_player(server_t* server, int fd)
     new_client->level = 1;
     new_client->name = NULL;
     new_client->life = 10;
+    new_client->next = NULL;
     new_client->pos_x = rand() % server->map.x_max;
     new_client->pos_y = rand() % server->map.y_max;
     for (int x = 0; x < 6; x++)
@@ -29,10 +30,24 @@ int new_client(server_t* server)
     player_t* player_copy = server->players;
 
     if (player_copy == NULL)
-        player_copy = new_client;
+        server->players = new_client;
     else {
         for (; player_copy->next; player_copy = player_copy->next)
-            player_copy->next = new_client;
+            ;
+        player_copy->next = new_client;
     }
     return EXIT_SUCCESS;
+}
+
+player_t* find_player_by_fd(server_t* server, int fd_find)
+{
+    player_t* player_copy = server->players;
+
+    for (; player_copy; player_copy = player_copy->next) {
+        printf("%d\n", player_copy->fd);
+        if (player_copy->fd == fd_find)
+            return player_copy;
+    }
+    print_error("find player");
+    return NULL;
 }
