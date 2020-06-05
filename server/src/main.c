@@ -8,6 +8,12 @@
 #include <time.h>
 #include "server.h"
 
+static int init_server_data(server_t *server)
+{
+    generate_map(server);
+    return EXIT_SUCCESS;
+}
+
 int main(int argc, const char* argv[])
 {
     server_t server;
@@ -16,6 +22,8 @@ int main(int argc, const char* argv[])
     if (parse_input(argc, (char** const)argv))
         return EXIT_ERROR;
     server = parse_server_input(argc, argv);
+    if (init_server_data(&server))
+        return EXIT_ERROR;
     if (create_server(&server))
         return EXIT_ERROR;
     printf("server start...\n");
