@@ -7,7 +7,7 @@
 
 #include "server.h"
 
-const int number_of_commands = 5;
+const int number_of_commands = 6;
 
 static const command_t COMMANDS[] = {
     { "", error_cmd },
@@ -15,6 +15,7 @@ static const command_t COMMANDS[] = {
     { "bct", content_of_a_tile },
     { "mct", content_of_all_tile },
     { "tna", name_of_all_teams },
+    { "sgt", time_unit_request }
 };
 
 command_t find_command(const char* buffer, int len)
