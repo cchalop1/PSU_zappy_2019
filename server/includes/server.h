@@ -37,6 +37,12 @@
 
 enum stone_e { LINEMATE, DERAUMERE, SIBUR, MENDIANE, PHIRAS, THYSTAME };
 
+enum PLAYER_TYPE {
+    NONE,
+    PLAYER,
+    GRAPHIC
+};
+
 typedef struct player_s {
     int fd;
     int team;
@@ -46,6 +52,7 @@ typedef struct player_s {
     int pos_x;
     int pos_y;
     int inventory[6];
+    enum PLAYER_TYPE type;
     struct player_s* next;
 } player_t;
 
@@ -97,7 +104,6 @@ player_t* find_player_by_fd(server_t* server, int fd_find);
 
 // utils
 char** parse_string_delim(const char* raw_str, const char* delim_raw);
-command_t find_command(const char* buffer, int len);
 void print_error(const char* messages);
 void send_reply(int fd, const char* messages);
 
