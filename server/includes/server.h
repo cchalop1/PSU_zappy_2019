@@ -37,11 +37,7 @@
 
 enum stone_e { LINEMATE, DERAUMERE, SIBUR, MENDIANE, PHIRAS, THYSTAME };
 
-enum PLAYER_TYPE {
-    NONE,
-    PLAYER,
-    GRAPHIC
-};
+enum PLAYER_TYPE { NONE, PLAYER, GRAPHIC };
 
 typedef struct player_s {
     int fd;
@@ -106,6 +102,7 @@ player_t* find_player_by_fd(server_t* server, int fd_find);
 char** parse_string_delim(const char* raw_str, const char* delim_raw);
 void print_error(const char* messages);
 void send_reply(int fd, const char* messages);
+char* int_to_string(int nb);
 
 // cmd
 int handle_client_cmd(server_t* server, player_t* player);

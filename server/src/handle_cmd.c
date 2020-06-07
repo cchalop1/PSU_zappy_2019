@@ -37,8 +37,6 @@ static command_t find_command_graphic(const char* buffer, int len)
     char** str = parse_string_delim(buffer, " \n");
     int idx = 0;
 
-    printf("grafic\n");
-
     for (int i = 0; i < number_of_commands; i++) {
         if (strcmp(str[0], COMMANDS[i].cmd) == 0) {
             idx = i;
