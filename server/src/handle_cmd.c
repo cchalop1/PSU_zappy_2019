@@ -57,14 +57,19 @@ static int login_client(const char* buffer, player_t* player, server_t* server)
 
     if (strcmp(str[0], "GRAPHIC") == 0) {
         player->type = GRAPHIC;
+        // send map
+        // graphic information
         return EXIT_SUCCESS;
     }
     for (int i = 0; server->team_names[i]; i++) {
         if (strcmp(str[0], server->team_names[i]) == 0) {
             player->type = PLAYER;
+            // send map size
+            // send player information
             return EXIT_SUCCESS;
         }
     }
+    send_reply(player->fd, "ko\n");
     for (int i = 0; str[i]; i++)
         free(str[i]);
     free(str);
