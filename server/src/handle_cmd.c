@@ -7,7 +7,7 @@
 
 #include "server.h"
 
-const int number_of_commands = 5;
+const int number_of_commands = 6;
 
 static const command_t COMMANDS[] = {
     { "", error_cmd },
@@ -15,6 +15,7 @@ static const command_t COMMANDS[] = {
     { "bct", content_of_a_tile },
     { "mct", content_of_all_tile },
     { "tna", name_of_all_teams },
+    { "sgt", time_unit_request }
 };
 
 command_t find_command(const char* buffer, int len)
@@ -42,8 +43,11 @@ int handle_client_cmd(server_t* server, player_t* player)
 
     len = read(player->fd, buffer, BUFFER_SIZE);
     buffer[len] = 0;
-    if (len <= 0)
-        return EXIT_FAILURE;
+    if (len <= 0) {
+        // remove client
+        close(player->fd);
+        return EXIT_SUCCESS;
+    }
     cmd = find_command(buffer, len);
     if (cmd.exec(server, player, buffer))
         return EXIT_FAILURE;

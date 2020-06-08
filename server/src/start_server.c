@@ -39,6 +39,7 @@ int manage_client(server_t* server)
         server->fds[server->nb_fd].fd = accept_client(server);
         server->fds[server->nb_fd].events = POLLIN;
         new_client(server);
+        printf("new client\n");
         server->nb_fd++;
         return EXIT_SUCCESS;
     }

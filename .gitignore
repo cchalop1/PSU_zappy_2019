@@ -1,3 +1,6 @@
 Subject
 node_modules
 package-lock.json
+zappy_server2
+.pytest_cache
+__pycache__
