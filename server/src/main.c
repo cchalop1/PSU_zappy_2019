@@ -26,7 +26,7 @@ int main(int argc, const char* argv[])
         return EXIT_ERROR;
     if (create_server(&server))
         return EXIT_ERROR;
-    printf("server start...\n");
+    printf("Port : %d\n", server.port);
     if (start_server(&server))
         return EXIT_ERROR;
     return 0;
