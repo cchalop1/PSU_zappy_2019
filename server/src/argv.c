@@ -45,8 +45,9 @@ static int fill_server_struct(server_t* server, int opt, const char** argv)
              count + (optind - 1) < (server->clients_nb + (optind - 1));
              count++) {
             server->team_names
-                = realloc(server->team_names, sizeof(char*) * (count + 1));
+                = realloc(server->team_names, sizeof(char*) * (count + 2));
             server->team_names[count] = strdup(argv[count + (optind - 1)]);
+            server->team_names[count + 1] = NULL;
         }
         break;
     default:

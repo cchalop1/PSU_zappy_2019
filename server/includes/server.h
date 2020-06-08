@@ -103,6 +103,7 @@ char** parse_string_delim(const char* raw_str, const char* delim_raw);
 void print_error(const char* messages);
 void send_reply(int fd, const char* messages);
 char* int_to_string(int nb);
+char* content_for_one_tile(server_t* server, int x, int y);
 
 // cmd
 int handle_client_cmd(server_t* server, player_t* player);
