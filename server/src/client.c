@@ -17,6 +17,7 @@ static player_t* fill_new_player(server_t* server, int fd)
     new_client->name = NULL;
     new_client->life = 10;
     new_client->next = NULL;
+    new_client->type = NONE;
     new_client->pos_x = rand() % server->map.x_max;
     new_client->pos_y = rand() % server->map.y_max;
     for (int x = 0; x < 6; x++)
