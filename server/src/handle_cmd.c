@@ -29,7 +29,6 @@ static command_t find_command(const char* buffer, int len)
     // free(str);
     printf("player\n");
     return COMMANDS[idx];
-    
 }
 
 static command_t find_command_graphic(const char* buffer, int len)
@@ -62,8 +61,9 @@ static int login_client(const char* buffer, player_t* player, server_t* server)
     for (int i = 0; server->team_names[i]; i++) {
         if (strcmp(str[0], server->team_names[i]) == 0) {
             player->type = PLAYER;
-            // send map size
-            // send player information
+            player->team_name = strdup(server->team_names[i]);
+            map_size(server, player, "");
+            player_info(server, player);
             return EXIT_SUCCESS;
         }
     }
@@ -83,7 +83,7 @@ int handle_client_cmd(server_t* server, player_t* player)
     len = read(player->fd, buffer, BUFFER_SIZE);
     buffer[len] = 0;
     if (len <= 0) {
-        // remove client
+        // TODO: remove client
         close(player->fd);
         return EXIT_SUCCESS;
     }

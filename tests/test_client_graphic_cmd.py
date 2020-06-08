@@ -18,7 +18,6 @@ def test_bad_commande():
         s.close()
 
 
-
 def test_get_time_commande():
     s = socket.socket()
     try:
@@ -32,7 +31,6 @@ def test_get_time_commande():
         assert 0
     finally:
         s.close()
-
 
 def test_get_time_commande():
     s = socket.socket()
