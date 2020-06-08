@@ -65,6 +65,7 @@ server_t parse_server_input(int argc, const char** argv)
     server.nb_fd = 0;
     server.players = NULL;
     server.freq = 100;
+    server.port = 4242;
     while ((opt = getopt(argc, (char** const)argv, "p:x:y:n:c:f:")) != -1) {
         fill_server_struct(&server, opt, argv);
     }

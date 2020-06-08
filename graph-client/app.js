@@ -10,26 +10,22 @@ document.body.appendChild(renderer.domElement);
 let data = JSON.parse(ipcRenderer.sendSync('data',''))
 
 let geometry = new THREE.PlaneGeometry(data.max_x, data.max_y, 30);
-let material = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide });
+let material = new THREE.MeshBasicMaterial({ color: 0x228B22, side: THREE.DoubleSide });
 let plane = new THREE.Mesh(geometry, material);
 
-let size = 10;
-let divisions = 10;
-
-let gridHelper = new THREE.GridHelper(size, divisions);
-scene.add(gridHelper)
-
-// plane.rotation.x = 
+plane.rotation.x = 1.60
 scene.add(plane);
 
 camera.position.z = 8;
 camera.position.y = 2;
 
-// let animate = () => {
-//     requestAnimationFrame(animate);
+let animate = () => {
+    requestAnimationFrame(animate);
 
-//     plane.rotation.y += 0.01;
-//     renderer.render(scene, camera);
-// };
+    plane.rotation.z += 0.003;
+    console.log(plane.rotation.x)
+    renderer.render(scene, camera);
+};
 
+// animate()
 renderer.render(scene, camera);
