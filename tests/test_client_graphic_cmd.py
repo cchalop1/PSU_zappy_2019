@@ -39,6 +39,8 @@ def test_get_time_commande():
         assert s.recv(5000).decode() == 'WELCOME\n'
         s.send('GRAPHIC\n'.encode())
         time.sleep(.2)
+        s.recv(5000).decode()
+        time.sleep(.2)
         s.send('tna\n'.encode())
         assert s.recv(5000).decode() == 'tna toto\ntna tata\n'
     except Exception as e:
