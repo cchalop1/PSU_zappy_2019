@@ -86,7 +86,7 @@ typedef int (*exec_cmd)(server_t* server, player_t* player, char* cmd);
 typedef struct command_s {
     char* cmd;
     exec_cmd exec;
-    // TODO: add more info
+    int settime;
 } command_t;
 
 // argv
@@ -101,14 +101,14 @@ int start_server(server_t* server);
 int new_client(server_t* server);
 player_t* find_player_by_fd(server_t* server, int fd_find);
 player_t* find_player_graphic(server_t* server);
-    // utils
-    char** parse_string_delim(const char* raw_str, const char* delim_raw);
+// utils
+char** parse_string_delim(const char* raw_str, const char* delim_raw);
 void print_error(const char* messages);
 void send_reply(int fd, const char* messages);
 char* int_to_string(int nb);
 char* content_for_one_tile(server_t* server, int x, int y);
 
-// cmd
+// cmd graph
 int handle_client_cmd(server_t* server, player_t* player);
 int error_cmd(server_t* server, player_t* player, char* cmd);
 int map_size(server_t* server, player_t* player, char* cmd);
@@ -119,5 +119,18 @@ int time_unit_request(server_t* server, player_t* player, char* cmd);
 int player_info(server_t* server, player_t* player, int fd_to_send);
 int player_pos(server_t* server, player_t* player, char* cmd);
 
-// map
-void generate_map(server_t* server);
+// cmd player
+int forward(server_t* server, player_t* player, char* cmd);
+int right(server_t* server, player_t* player, char* cmd);
+int left(server_t* server, player_t* player, char* cmd);
+int look(server_t* server, player_t* player, char* cmd);
+int inventory(server_t* server, player_t* player, char* cmd);
+int broadcast(server_t* server, player_t* player, char* cmd);
+int connect_nbr(server_t* server, player_t* player, char* cmd);
+int fork_cmd_player(server_t* server, player_t* player, char* cmd);
+int eject(server_t* server, player_t* player, char* cmd);
+int take(server_t* server, player_t* player, char* cmd);
+int set(server_t* server, player_t* player, char* cmd);
+int incantation(server_t* server, player_t* player, char* cmd);
+    // map
+    void generate_map(server_t* server);
