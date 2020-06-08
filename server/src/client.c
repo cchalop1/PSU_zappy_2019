@@ -45,10 +45,25 @@ player_t* find_player_by_fd(server_t* server, int fd_find)
 {
     player_t* player_copy = server->players;
 
+    if (fd_find == -1)
+        return NULL;
     for (; player_copy; player_copy = player_copy->next) {
-        if (player_copy->fd == fd_find)
+        if (player_copy->fd == fd_find) {
             return player_copy;
+        }
     }
     print_error("find player");
+    return NULL;
+}
+
+player_t* find_player_graphic(server_t* server)
+{
+    player_t* player_copy = server->players;
+
+    for (; player_copy; player_copy = player_copy->next) {
+        if (player_copy->type == GRAPHIC) {
+            return player_copy;
+        }
+    }
     return NULL;
 }

@@ -100,9 +100,9 @@ int start_server(server_t* server);
 // client
 int new_client(server_t* server);
 player_t* find_player_by_fd(server_t* server, int fd_find);
-
-// utils
-char** parse_string_delim(const char* raw_str, const char* delim_raw);
+player_t* find_player_graphic(server_t* server);
+    // utils
+    char** parse_string_delim(const char* raw_str, const char* delim_raw);
 void print_error(const char* messages);
 void send_reply(int fd, const char* messages);
 char* int_to_string(int nb);
@@ -116,7 +116,8 @@ int content_of_a_tile(server_t* server, player_t* player, char* cmd);
 int content_of_all_tile(server_t* server, player_t* player, char* cmd);
 int name_of_all_teams(server_t* server, player_t* player, char* cmd);
 int time_unit_request(server_t* server, player_t* player, char* cmd);
-int player_info(server_t* server, player_t* player);
+int player_info(server_t* server, player_t* player, int fd_to_send);
+int player_pos(server_t* server, player_t* player, char* cmd);
 
 // map
 void generate_map(server_t* server);
