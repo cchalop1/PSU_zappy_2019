@@ -18,7 +18,6 @@ def test_bad_commande():
         s.close()
 
 
-
 def test_get_time_commande():
     s = socket.socket()
     try:
@@ -33,13 +32,14 @@ def test_get_time_commande():
     finally:
         s.close()
 
-
 def test_get_time_commande():
     s = socket.socket()
     try:
         s.connect((HOST, PORT))
         assert s.recv(5000).decode() == 'WELCOME\n'
         s.send('GRAPHIC\n'.encode())
+        time.sleep(.2)
+        s.recv(5000).decode()
         time.sleep(.2)
         s.send('tna\n'.encode())
         assert s.recv(5000).decode() == 'tna toto\ntna tata\n'
