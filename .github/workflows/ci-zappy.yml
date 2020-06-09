@@ -22,7 +22,7 @@ jobs:
     - name: test
       run: |
         echo "start test"
-        make re ; ./zappy_server -x 10 -y 10 -c 2 -n name1 name2 -f 200 -p 4242 &
+        make re ; ./zappy_server -x 10 -y 10 -c 2 -n toto tata -f 200 -p 4242 &
         cd tests
         pip install -U pytest
         pytest

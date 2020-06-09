@@ -42,7 +42,7 @@ const start_server = () => {
     socket.connect(OPTION.port, OPTION.machine, () => {
         console.log('connect to server')
     })
-    socket.write('toto\n')
+    socket.write(OPTION.name + '\n')
     socket.on('data', (data) => {
         console.log(data.toString())
     })
