@@ -102,6 +102,8 @@ int start_server(server_t* server);
 int new_client(server_t* server);
 player_t* find_player_by_fd(server_t* server, int fd_find);
 player_t* find_player_graphic(server_t* server);
+int check_max_client(server_t* s, char* team_name);
+
 // utils
 char** parse_string_delim(const char* raw_str, const char* delim_raw);
 void print_error(const char* messages);
@@ -134,8 +136,8 @@ int take(server_t* server, player_t* player, char* cmd);
 int set(server_t* server, player_t* player, char* cmd);
 int incantation(server_t* server, player_t* player, char* cmd);
 
-//other
-int vision(server_t *, player_t *);
+// other
+int vision(server_t*, player_t*);
 
 // map
 void generate_map(server_t* server);

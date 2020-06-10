@@ -95,10 +95,12 @@ static int login_client(const char* buffer, player_t* player, server_t* server)
     }
     for (int i = 0; server->team_names[i]; i++) {
         if (strcmp(str[0], server->team_names[i]) == 0) {
+            if (check_max_client(server, str[0]) == EXIT_FAILURE)
+                break;
             new_player(server, player, i);
             return EXIT_SUCCESS;
         }
-    }
+    }   
     send_reply(player->fd, "ko\n");
     for (int i = 0; str[i]; i++)
         free(str[i]);
