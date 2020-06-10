@@ -27,7 +27,7 @@ static player_t* fill_new_player(server_t* server, int fd)
 int new_client(server_t* server)
 {
     player_t* new_client
-        = fill_new_player(server, server->fds[server->nb_fd].fd);
+        = fill_new_player(server, accept_client(server));
     player_t* player_copy = server->players;
 
     if (player_copy == NULL)
@@ -37,7 +37,8 @@ int new_client(server_t* server)
             ;
         player_copy->next = new_client;
     }
-    send_reply(server->fds[server->nb_fd].fd, "WELCOME\n");
+    FD_SET(new_client->fd, &server->current_sockets);
+    send_reply(new_client->fd, "WELCOME\n");
     return EXIT_SUCCESS;
 }
 

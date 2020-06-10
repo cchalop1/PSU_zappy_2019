@@ -36,7 +36,6 @@ int create_server(server_t* server)
         fprintf(stdout, "bind fail (%s)\n", strerror(errno));
         return EXIT_FAILURE;
     }
-    // TODO: max client
     if ((listen(server->sockfd, MAX_CLIENTS)) != 0) {
         fprintf(stdout, "listen fail (%s)\n", strerror(errno));
         return EXIT_FAILURE;

@@ -74,10 +74,13 @@ typedef struct server_s {
     int clients_nb;
     int sockfd;
     int freq;
+    fd_set current_sockets;
+    fd_set ready_socket;
+    int max_client;
     char** team_names;
     player_t* players;
     map_t map;
-    struct pollfd fds[MAX_CLIENTS];
+    // struct pollfd fds[MAX_CLIENTS];
     int nb_fd;
 } server_t;
 
@@ -132,5 +135,12 @@ int eject(server_t* server, player_t* player, char* cmd);
 int take(server_t* server, player_t* player, char* cmd);
 int set(server_t* server, player_t* player, char* cmd);
 int incantation(server_t* server, player_t* player, char* cmd);
-    // map
-    void generate_map(server_t* server);
+
+// map
+void generate_map(server_t* server);
+
+// select
+void init_select(server_t* server);
+bool manage_select(server_t* server);
+int get_fd_change(server_t* server);
+int accept_client(server_t* server);
