@@ -14,7 +14,19 @@ int broadcast(server_t* server, player_t* player, char* cmd)
 
 int connect_nbr(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    player_t* player_copy = server->players;
+    int player_nb_co = 0;
+    char reply[BUFFER_SIZE];
+
+    for (; player_copy; player_copy = player_copy->next) {
+        if (strcmp(player_copy->team_name, player->team_name) == 0)
+            player_nb_co++;
+    }
+    reply[0] = 0;
+    strcat(reply, int_to_string(server->clients_nb - player_nb_co));
+    strcat(reply, "\n");
+    send_reply(player->fd, reply);
+    return EXIT_SUCCESS;
 }
 
 int fork_cmd_player(server_t* server, player_t* player, char* cmd)
@@ -24,11 +36,26 @@ int fork_cmd_player(server_t* server, player_t* player, char* cmd)
 
 int eject(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    player_t* player_copy = server->players;
+    bool player_is_eject = false;
+
+    // TODO: send to other plyer eject
+    for (; player_copy; player_copy = player_copy->next) {
+        if (player->pos_x == player_copy->pos_x
+            && player->pos_y == player_copy->pos_y) {
+            forward(server, player_copy, "");
+            send_reply(player->fd, "ok\n");
+            player_is_eject = true;
+        }
+    }
+    if (!player_is_eject) {
+        send_reply(player->fd, "ko\n");
+        return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
 }
 
 int take(server_t* server, player_t* player, char* cmd)
 {
     // TODO: implem
 }
-
