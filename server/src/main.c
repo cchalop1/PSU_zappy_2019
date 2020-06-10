@@ -11,6 +11,7 @@
 static int init_server_data(server_t *server)
 {
     generate_map(server);
+    signal(SIGINT, exit);
     return EXIT_SUCCESS;
 }
 
