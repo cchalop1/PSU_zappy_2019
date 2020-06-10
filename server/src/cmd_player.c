@@ -48,7 +48,9 @@ int left(server_t* server, player_t* player, char* cmd)
 
 int look(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    char res[MAX_BODY_LENGTH];
+
+    return vision(server, player);
 }
 
 int inventory(server_t* server, player_t* player, char* cmd)
