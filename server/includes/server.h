@@ -133,5 +133,9 @@ int eject(server_t* server, player_t* player, char* cmd);
 int take(server_t* server, player_t* player, char* cmd);
 int set(server_t* server, player_t* player, char* cmd);
 int incantation(server_t* server, player_t* player, char* cmd);
+
+//other
+int vision(server_t *, player_t *);
+
 // map
 void generate_map(server_t* server);
