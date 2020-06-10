@@ -14,6 +14,7 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <poll.h>
+#include <signal.h>
 #include <stdarg.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -132,5 +133,5 @@ int eject(server_t* server, player_t* player, char* cmd);
 int take(server_t* server, player_t* player, char* cmd);
 int set(server_t* server, player_t* player, char* cmd);
 int incantation(server_t* server, player_t* player, char* cmd);
-    // map
-    void generate_map(server_t* server);
+// map
+void generate_map(server_t* server);
