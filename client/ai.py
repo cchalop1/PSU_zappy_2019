@@ -1,6 +1,8 @@
-from ai_actions import ai_actions, act_dur, recipe
+from ai_actions import ai_actions, act_dur, recipe, stones
 from ai_stats import ai_stats
 from path import path
+from math import sqrt
+import random as rd
 
 class ai(ai_actions, ai_stats):
     def __init__(self):
@@ -10,6 +12,7 @@ class ai(ai_actions, ai_stats):
     def __del__(self):
         pass
 
+    ### not end
     def loop(self):
         while 1:
             aswer = self.get_return()
@@ -17,6 +20,15 @@ class ai(ai_actions, ai_stats):
 
     def select_action(self):
         pass
+
+    def walk(self):
+        i = rd.randrange(8)
+        if i == 0:
+            self.Left()
+        elif i == 1:
+            self.Right()
+        else:
+            self.Forward()
 
     def have_time(self, func):
         if self.time_unit >= act_dur[func]:
@@ -70,6 +82,13 @@ class ai(ai_actions, ai_stats):
             return False
         return True
 
+    ### can replace
+    def can_lvl_up2(self):
+        for i in stones:
+            if self.inventory[i] < recipe[self.level][i]:
+                return False
+        return True
+
     def needed(self):
         if self.inventory["thystame"] < recipe[self.level]["thystame"]:
             return "thystame"
@@ -85,6 +104,13 @@ class ai(ai_actions, ai_stats):
             return "linemate"
         else:
             return ""
+
+    ### can replace
+    def needed2(self):
+        for i in stones:
+            if self.inventory[i] < recipe[self.level][i]:
+                return i
+        return ""
 
     def go_to(self, path):
         for i in range(0, path.forward):
@@ -102,22 +128,33 @@ class ai(ai_actions, ai_stats):
         p = path(0,0,0)
         return p
 
+    def get_path(self, n):
+        f = round(sqrt(n))
+        dir = n  - (f**2 + f)
+        l = 0 if dir >= 0 else dir * -1
+        r = 0 if dir <= 0 else dir
+        p = path(f,l,r)
+        return p
+
+    ### can do better ?
     def _find_that(self, obj):
         i = 0
         while (i < len(self.vision)):
             if obj in self.vision[i]:
-                pass ####
+                return self.get_path(i)
             i += 1
-        return 0 ###
+        return path(-1,-1,-1)
 
     def find_that(self, obj):
         p = path(0,0,0)
         self.get_look()
-        n = self._find_that(obj)
+        p = self._find_that(obj)
         return p
 
     def get_object(self, obj):
         p = self.find_that(obj)
-        self.go_to(p)
-        self.Take(obj)
-        pass
+        if p.forward == -1:
+            self.walk()
+        else:
+            self.go_to(p)
+            self.Take(obj)
