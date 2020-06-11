@@ -2,12 +2,22 @@
 import sys
 import getopt
 
+
+def print_help():
+    print("USAGE: ./zappy_ai -p port -n name -h machine")
+    print("      port        is the port number");
+    print("      name       is the name of the team");
+    print("      machine    is the name of the machine; localhost by default")
+
 class Client:
     def __init__(self):
         self.parse_argument()
 
 
     def parse_argument(self):
+        if len(sys.argv) == 2 and sys.argv[1] == "-help":
+            print_help()
+            exit(0)
         optlist, _ = getopt.getopt(sys.argv[1:], 'n:h:p:')
         for name, value in optlist:
             if name == "-h":
