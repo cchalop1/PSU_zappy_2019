@@ -90,6 +90,9 @@ typedef struct command_s {
     int settime;
 } command_t;
 
+static const char* objects[6]
+    = { "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame" };
+
 // argv
 int parse_input(int argc, char* const argv[]);
 server_t parse_server_input(int argc, const char** argv);
