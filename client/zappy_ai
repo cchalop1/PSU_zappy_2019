@@ -1,53 +1,20 @@
-#!/usr/bin/env node
-const net = require('net');
+#!/usr/bin/python3
+import sys
+import getopt
 
-let OPTION = {
-    port: -1,
-    name: '',
-    machine: ''
-}
-
-let client = undefined
-
-const print_help = () => {
-    console.log('USAGE: ./zappy_ai -p port -n name -h machine')
-    console.log('      port       is the port number')
-    console.log('      name       is the name of the team')
-    console.log('      machine    is the name of the machine; localhost by default')
-    process.exit()
-}
-
-let socket = new net.Socket();
-
-const argv_parcing = () => {
-    const argv = process.argv.slice(2)
-    argv.forEach((param, idx) => {
-        switch (param) {
-            case '-help':
-                print_help()
-            case '-p':
-                OPTION.port = Number(argv[idx + 1])
-                break
-            case '-n':
-                OPTION.name = argv[idx + 1]
-                break
-            case '-h':
-                OPTION.machine = argv[idx + 1]
-                break
-        }
-    })
-}
-
-const start_server = () => {
-    socket.connect(OPTION.port, OPTION.machine, () => {
-        console.log('connect to server')
-    })
-    socket.write(OPTION.name + '\n')
-    socket.on('data', (data) => {
-        console.log(data.toString())
-    })
-}
+class Client:
+    def __init__(self):
+        self.parse_argument()
 
 
-argv_parcing()
-start_server()
+    def parse_argument(self):
+        optlist, _ = getopt.getopt(sys.argv[1:], 'n:h:p:')
+        for name, value in optlist:
+            if name == "-h":
+                self.host = value
+            elif name == "-n":
+                self.team_name = value
+            elif name == "-p":
+                self.port = int(value)
+
+client = Client()
