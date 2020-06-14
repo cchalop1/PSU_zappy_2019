@@ -8,8 +8,6 @@
 
 SRC = 	$(wildcard ./src/*.c)
 
-# LDFLAGS =
-
 CC = gcc
 
 CFLAGS = -W -Wextra -I./includes/ -g3

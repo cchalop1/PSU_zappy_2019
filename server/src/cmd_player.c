@@ -48,10 +48,33 @@ int left(server_t* server, player_t* player, char* cmd)
 
 int look(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    char res[MAX_BODY_LENGTH];
+
+    return vision(server, player);
 }
 
 int inventory(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    char reply[BUFFER_SIZE];
+
+    reply[0] = 0;
+    strcat(reply, "[linemate ");
+    strcat(reply, int_to_string(player->inventory[LINEMATE]));
+    strcat(reply, ",");
+    strcat(reply, " sibur ");
+    strcat(reply, int_to_string(player->inventory[SIBUR]));
+    strcat(reply, ",");
+    strcat(reply, " deraumere ");
+    strcat(reply, int_to_string(player->inventory[DERAUMERE]));
+    strcat(reply, ",");
+    strcat(reply, " phiras ");
+    strcat(reply, int_to_string(player->inventory[PHIRAS]));
+    strcat(reply, ",");
+    strcat(reply, " mendiane ");
+    strcat(reply, int_to_string(player->inventory[MENDIANE]));
+    strcat(reply, ",");
+    strcat(reply, " thystame ");
+    strcat(reply, int_to_string(player->inventory[THYSTAME]));
+    strcat(reply, "]\n");
+    send_reply(player->fd, reply);
 }

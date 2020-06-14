@@ -71,6 +71,14 @@ static void new_player(server_t* server, player_t* player, int i)
 
     player->type = PLAYER;
     player->team_name = strdup(server->team_names[i]);
+    player->inventory[0] = 0;
+    player->inventory[1] = 0;
+    player->inventory[2] = 0;
+    player->inventory[3] = 0;
+    player->inventory[4] = 0;
+    player->inventory[5] = 0;
+    send_reply(player->fd, int_to_string(player->fd));
+    send_reply(player->fd, "\n");
     map_size(server, player, "");
     if (graphic_player != NULL)
         player_info(server, player, graphic_player->fd);
@@ -87,10 +95,12 @@ static int login_client(const char* buffer, player_t* player, server_t* server)
     }
     for (int i = 0; server->team_names[i]; i++) {
         if (strcmp(str[0], server->team_names[i]) == 0) {
+            if (check_max_client(server, str[0]) == EXIT_FAILURE)
+                break;
             new_player(server, player, i);
             return EXIT_SUCCESS;
         }
-    }
+    }   
     send_reply(player->fd, "ko\n");
     for (int i = 0; str[i]; i++)
         free(str[i]);
