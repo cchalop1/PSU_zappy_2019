@@ -54,6 +54,7 @@ typedef struct player_s {
     int inventory[6];
     enum PLAYER_TYPE type;
     struct player_s* next;
+    bool is_egg;
 } player_t;
 
 typedef struct tile_s {
