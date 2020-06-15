@@ -31,7 +31,23 @@ int connect_nbr(server_t* server, player_t* player, char* cmd)
 
 int fork_cmd_player(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    player_t *new_egg = malloc(sizeof(struct player_s));
+
+    new_egg->fd = -1;
+    new_egg->team = player->team;
+    new_egg->level = 1;
+    //TODO
+    //Time + Add to some list
+    new_egg->life = 0;
+    new_egg->team_name = strdup(player->team_name);
+    new_egg->pos_x = player->pos_x;
+    new_egg->pos_y = player->pos_y;
+    new_egg->orientation = (rand() % 4) + 1;
+    for (int x = 0; x < 6; x++)
+        new_egg->inventory[x] = 0;
+    new_egg->is_egg = true;
+    send_reply(player->fd, "ok\n");
+    return EXIT_SUCCESS;
 }
 
 int eject(server_t* server, player_t* player, char* cmd)
