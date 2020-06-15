@@ -127,7 +127,6 @@ int handle_client_cmd(server_t* server, player_t* player)
         cmd = find_command_graphic(buffer, len);
     else
         return login_client(buffer, player, server);
-    if (cmd.exec(server, player, buffer))
-        return EXIT_FAILURE;
+    add_job(server, cmd, player, buffer);
     return EXIT_SUCCESS;
 }
