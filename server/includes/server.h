@@ -80,6 +80,7 @@ typedef struct server_s {
     map_t map;
     struct pollfd fds[MAX_CLIENTS];
     int nb_fd;
+    struct jobs_s* jobs;
 } server_t;
 
 typedef int (*exec_cmd)(server_t* server, player_t* player, char* cmd);
@@ -89,6 +90,15 @@ typedef struct command_s {
     exec_cmd exec;
     int settime;
 } command_t;
+
+typedef struct jobs_s {
+    exec_cmd exec;
+    char* buffer;
+    player_t* player;
+    unsigned long end;
+    int time;
+    struct jobs_s* next;
+} jobs_t;
 
 // argv
 int parse_input(int argc, char* const argv[]);
@@ -103,6 +113,8 @@ int new_client(server_t* server);
 player_t* find_player_by_fd(server_t* server, int fd_find);
 player_t* find_player_graphic(server_t* server);
 int check_max_client(server_t* s, char* team_name);
+int add_job(server_t* server, command_t cmd, player_t* player, char* buffer);
+int manage_jobs(server_t* server);
 
 // utils
 char** parse_string_delim(const char* raw_str, const char* delim_raw);
