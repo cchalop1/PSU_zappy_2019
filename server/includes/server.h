@@ -47,7 +47,7 @@ typedef struct player_s {
     int team;
     int level;
     char* team_name;
-    int life;
+    unsigned long life;
     int pos_x;
     int pos_y;
     enum orientation orientation;

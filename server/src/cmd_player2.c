@@ -36,9 +36,8 @@ int fork_cmd_player(server_t* server, player_t* player, char* cmd)
     new_egg->fd = -1;
     new_egg->team = player->team;
     new_egg->level = 1;
-    //TODO
-    //Time + Add to some list
-    new_egg->life = 0;
+    new_egg->life = (clock() * 1000 / CLOCKS_PER_SEC) + ((600 / server->freq) \
+    * 1000);
     new_egg->team_name = strdup(player->team_name);
     new_egg->pos_x = player->pos_x;
     new_egg->pos_y = player->pos_y;
