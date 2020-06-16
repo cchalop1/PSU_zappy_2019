@@ -71,6 +71,8 @@ static void new_player(server_t* server, player_t* player, int i)
 
     player->type = PLAYER;
     player->team_name = strdup(server->team_names[i]);
+    player->life
+        = (clock() * 1000 / CLOCKS_PER_SEC) + ((1260 / server->freq) * 1000);
     player->inventory[0] = 0;
     player->inventory[1] = 0;
     player->inventory[2] = 0;
