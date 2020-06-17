@@ -1,4 +1,5 @@
 from ai_stats import ai_stats
+from Client import Client
 
 act_dur = {
     "Forward" : 7,
@@ -26,66 +27,87 @@ recipe = [ {},
 
 stones = ["linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"]
 
-class ai_actions(ai_stats):
+class ai_actions(ai_stats, Client):
     def __init__(self):
+        Client.__init__(self)
+        ai_stats.__init__(self)
         pass
 
     #move up one tile
     def Forward(self):
         self.time_unit -= act_dur["Forward"]
+        self.sock.send(("Forward\n").encode())
         print("Forward")
+        self.reply = self.sock.recv(5000).decode()
 
     #turn 90o right
     def Right(self):
         self.time_unit -= act_dur["Right"]
+        self.sock.send(("Right\n").encode())
         print("Right")
+        self.reply = self.sock.recv(5000).decode()
 
     #turn 90o left
     def Left(self):
         self.time_unit -= act_dur["Left"]
+        self.sock.send(("Left\n").encode())
         print("Left")
+        self.reply = self.sock.recv(5000).decode()
 
     #look around
     def Look(self):
         self.time_unit -= act_dur["Look"]
+        self.sock.send(("Look\n").encode())
         print("Look")
+        self.reply = self.sock.recv(5000).decode()
 
     #inventory
     def Inventory(self):
         self.time_unit -= act_dur["Inventory"]
+        self.sock.send(("Inventory\n").encode())
         print("Inventory")
+        self.reply = self.sock.recv(5000).decode()
 
     #number of team unused slots
     def Connect_nbr(self):
         self.time_unit -= act_dur["Connect_nbr"]
-        print("Connect_nbr")
+        self.sock.send(("Connect_nbr\n").encode())
+        self.reply = self.sock.recv(5000).decode()
 
     #fork a player
     def Fork(self):
         self.time_unit -= act_dur["Fork"]
-        print("Fork")
+        self.sock.send(("Fork\n").encode())
+        self.reply = self.sock.recv(5000).decode()
 
     #eject players from this tile
     def Eject(self):
         self.time_unit -= act_dur["Eject"]
+        self.sock.send(("Eject\n").encode())
         print("Eject")
+        self.reply = self.sock.recv(5000).decode()
 
     #take object
     def Take(self, obj):
         self.time_unit -= act_dur["Look"]
-        print("Look", obj)
+        self.sock.send(("Look " + obj +"\n").encode())
+        print("Take")
+        self.reply = self.sock.recv(5000).decode()
 
     #set object down
     def Set(self, obj):
         self.time_unit -= act_dur["Set"]
-        print("Set", obj)
+        self.sock.send(("Set " + obj + "\n").encode())
+        self.reply = self.sock.recv(5000).decode()
 
     #broadcast text
     def Broadcast(self, text):
         self.time_unit -= act_dur["Broadcast"]
-        print("Broadcast", text)
+        self.sock.send(("Broadcast " + text + "\n").encode())
+        self.reply = self.sock.recv(5000).decode()
 
     #start incantation
     def Incantation(self):
         self.time_unit -= act_dur["Incantation"]
-        print("Incantation")
+        self.sock.send(("Incantation\n").encode())
+        self.reply = self.sock.recv(5000).decode()
