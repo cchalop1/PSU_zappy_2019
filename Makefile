@@ -7,7 +7,7 @@
 
 
 all:  server
-		cp ./client/main ./zappy_ai
+		cp ./client/zappy_ai ./zappy_ai
 		chmod +x ./zappy_ai
 
 server:
