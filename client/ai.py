@@ -4,18 +4,18 @@ from path import path
 from math import sqrt
 import random as rd
 
-class ai(ai_actions, ai_stats):
+class ai(ai_actions):
     def __init__(self):
-        super().__init__(self)
-        pass
+        ai_actions.__init__(self)
+        self.get_return()
+        self.loop()
 
     def __del__(self):
         pass
 
-    ### not end
     def loop(self):
         while 1:
-            aswer = self.get_return()
+            print(self.reply)
             self.select_action()
 
     def select_action(self):
@@ -36,7 +36,8 @@ class ai(ai_actions, ai_stats):
         return False
 
     def get_return(self):
-        ret = ""
+        ret = self.sock.recv(5000).decode()
+        print(ret)
         return ret
 
     def is_dead(self):
