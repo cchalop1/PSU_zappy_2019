@@ -14,7 +14,7 @@ static player_t* fill_new_player(server_t* server, int fd)
     new_client->fd = fd;
     new_client->team = 0;
     new_client->level = 1;
-    new_client->life = 10;
+    new_client->life = 0;
     new_client->team_name = NULL;
     new_client->next = NULL;
     new_client->type = NONE;
