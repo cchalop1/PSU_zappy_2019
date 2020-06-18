@@ -7,9 +7,34 @@
 
 #include "server.h"
 
+void print_list(player_t *p)
+{
+    if (!p) {
+        printf("Null\n");
+        return;
+    }
+    if (!p->next) {
+        printf("%d\n", p->fd);
+    }
+    for (; p->next; p = p->next)
+        printf("%d\n", p->fd);
+}
+
 int broadcast(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    player_t *list = server->players;
+    cmd[strlen(cmd) - 1] = '\0';
+    char *temp = cmd + 10;
+    char res[MAX_BODY_LENGTH];
+    char *s = res;
+
+    print_list(list);
+    s += sprintf(s, "messages %d, %s\n", rand() % 8 + 1, temp);
+    for (; list; list = list->next) {
+        if (list->fd != player->fd && !list->is_egg)
+            send_reply(list->fd, res);
+    }
+    return EXIT_SUCCESS;
 }
 
 int connect_nbr(server_t* server, player_t* player, char* cmd)
