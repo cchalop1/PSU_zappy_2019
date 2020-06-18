@@ -6,7 +6,10 @@
 ##
 
 SRC	=	src/main.cpp \
-		src/Client.cpp
+		src/Client.cpp	\
+		src/Graphic_client.cpp	\
+		src/Stone.cpp	\
+		src/Map.cpp
 
 OBJ		=	$(SRC:.cpp=.o) \
 
@@ -14,13 +17,12 @@ CPPFLAGS	=	-I./include
 
 CFLAGS	=	-Wall -Wextra
 
-
 NAME = graphic_client
 
 all: $(NAME)
 
 $(NAME):	$(OBJ)
-	g++ -o $(NAME) $(OBJ) -lncurses
+	g++ -o $(NAME) $(OBJ) -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
 	rm -rf *~ *# vgcore* src/*~ src/*# include/*~ include/*#
