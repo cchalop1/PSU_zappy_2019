@@ -34,10 +34,10 @@ static void manage_life_player(server_t* server) {
     player_t *copy_player = server->players;
 
     for (; copy_player; copy_player = copy_player->next) {
-        if (copy_player->life != 10 && (unsigned long)(clock() * 1000 / CLOCKS_PER_SEC) * 1000 > copy_player->life) {
-            send_reply(copy_player->fd, "dead\n");
-            close(copy_player->fd);
-        }
+        // if (copy_player->life != 10 && (unsigned long)(clock() * 1000 / CLOCKS_PER_SEC) * 1000 > copy_player->life) {
+        //     send_reply(copy_player->fd, "dead\n");
+        //     close(copy_player->fd);
+        // }
     }
 }
 

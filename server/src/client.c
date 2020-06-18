@@ -35,8 +35,7 @@ int new_client(server_t* server)
     if (player_copy == NULL)
         server->players = new_client;
     else {
-        for (; player_copy->next; player_copy = player_copy->next)
-            ;
+        for (; player_copy->next; player_copy = player_copy->next);
         player_copy->next = new_client;
     }
     send_reply(server->fds[server->nb_fd].fd, "WELCOME\n");
