@@ -11,7 +11,7 @@ class first_ai(ai):
 
     def walk(self):
         self.get_look()
-        for i in self.vision[0]:
+        for i in self.vision:
             self.Take(i)
         self.Forward()
 
