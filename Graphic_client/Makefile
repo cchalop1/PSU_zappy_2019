@@ -5,10 +5,10 @@
 ## Makefile for ZAPPY
 ##
 
-SRC	=	src/main.c \
-		src/init_client.c \
+SRC	=	src/main.cpp \
+		src/Client.cpp
 
-OBJ		=	$(SRC:.c=.o) \
+OBJ		=	$(SRC:.cpp=.o) \
 
 CPPFLAGS	=	-I./include
 
@@ -20,7 +20,7 @@ NAME = graphic_client
 all: $(NAME)
 
 $(NAME):	$(OBJ)
-	gcc -o $(NAME) $(OBJ) -lncurses
+	g++ -o $(NAME) $(OBJ) -lncurses
 
 clean:
 	rm -rf *~ *# vgcore* src/*~ src/*# include/*~ include/*#
