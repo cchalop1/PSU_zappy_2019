@@ -41,8 +41,8 @@ static int fill_server_struct(server_t* server, int opt, const char** argv)
         server->freq = atoi(optarg);
         break;
     case 'n':
-        for (int count = 0;
-             count + (optind - 1) < (server->clients_nb + (optind - 1));
+        for (int count = 0; argv[count + (optind - 1)]
+             && !strrchr(argv[count + (optind - 1)], '-');
              count++) {
             server->team_names
                 = realloc(server->team_names, sizeof(char*) * (count + 2));

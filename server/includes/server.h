@@ -47,7 +47,7 @@ typedef struct player_s {
     int team;
     int level;
     char* team_name;
-    int life;
+    float life;
     int pos_x;
     int pos_y;
     enum orientation orientation;
@@ -96,7 +96,7 @@ typedef struct jobs_s {
     exec_cmd exec;
     char* buffer;
     player_t* player;
-    unsigned long end;
+    float end;
     int time;
     struct jobs_s* next;
 } jobs_t;
@@ -151,6 +151,7 @@ int incantation(server_t* server, player_t* player, char* cmd);
 
 // other
 int vision(server_t*, player_t*);
+int find_broadcast_dir(player_t *, player_t *);
 
 // map
 void generate_map(server_t* server);

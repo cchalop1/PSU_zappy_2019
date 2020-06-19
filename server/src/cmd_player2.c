@@ -9,7 +9,20 @@
 
 int broadcast(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    player_t *list = server->players;
+    cmd[strlen(cmd) - 1] = '\0';
+    char *temp = cmd + 10;
+    char res[MAX_BODY_LENGTH];
+    char *s = res;
+
+    for (; list; list = list->next) {
+        if (list->fd != player->fd && !list->is_egg) {
+            sprintf(s, "messages %d, %s\n",
+            find_broadcast_dir(list, player), temp);
+            send_reply(list->fd, res);
+        }
+    }
+    return EXIT_SUCCESS;
 }
 
 int connect_nbr(server_t* server, player_t* player, char* cmd)
@@ -36,9 +49,8 @@ int fork_cmd_player(server_t* server, player_t* player, char* cmd)
     new_egg->fd = -1;
     new_egg->team = player->team;
     new_egg->level = 1;
-    //TODO
-    //Time + Add to some list
-    new_egg->life = 0;
+    new_egg->life = (clock() * 1000 / CLOCKS_PER_SEC) + ((600 / server->freq) \
+    * 1000);
     new_egg->team_name = strdup(player->team_name);
     new_egg->pos_x = player->pos_x;
     new_egg->pos_y = player->pos_y;
