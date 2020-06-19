@@ -13,7 +13,7 @@ SRC	=	src/main.cpp \
 
 OBJ		=	$(SRC:.cpp=.o) \
 
-CPPFLAGS	=	-I./include
+CPPFLAGS	=	-I./include -g3
 
 CFLAGS	=	-Wall -Wextra
 

@@ -14,7 +14,7 @@
 #include "Item.hpp"
 class Map {
     public:
-        Map(std::vector<sf::Texture> _texture_item);
+        Map(std::vector<sf::Texture> &_texture_item);
         void init_x(int x) { if (x != 1) { _x = _x * x; } std::cout << _x << std::endl; };
         void init_y(int y) { if (y != 1) {_y = _y * y; } std::cout << _y << std::endl; };
         void init();
@@ -31,7 +31,7 @@ class Map {
         sf::RenderWindow *_window;
         sf::Texture _Texture;
         sf::Sprite _Sprite;
-        std::vector<sf::Texture> _texture_item;
+        std::vector<sf::Texture> &_texture_item;
         std::vector<Item> _food;
         std::vector<Item> _linemate;
         std::vector<Item> _deraumere;

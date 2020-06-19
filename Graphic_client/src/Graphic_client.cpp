@@ -113,7 +113,6 @@ void Graphic_client::check_command(std::string command)
 
 void Graphic_client::run(std::string command)
 {
-    create_tile(command);
     while (_window.isOpen())
     {
         check_command(command);
@@ -124,7 +123,8 @@ void Graphic_client::run(std::string command)
         }
         _window.clear();
         _window.draw(_backgroundSprite);
-        _map[_index_map]->draw(&_window);
+        for (int i = 0; i != _map.size(); i++)
+            _map[i]->draw(&_window);
         _window.display();
     }
 }

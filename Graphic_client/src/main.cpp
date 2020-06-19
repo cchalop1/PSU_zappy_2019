@@ -21,7 +21,7 @@ void client_loop(Client client)
 
     Graphic_client graphic;
     graphic.create_all_tiles(command);
-    //graphic.run(command);
+    graphic.run(command);
     /*while (command.size() != 0)
     {
         std::cout << command;

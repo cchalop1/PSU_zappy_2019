@@ -7,7 +7,7 @@
 
 #include "../include/Item.hpp"
 
-Item::Item(sf::Texture Texture)
+Item::Item(sf::Texture &Texture)
 {
     _Sprite.setTexture(Texture);
     can_draw = true;
@@ -16,6 +16,11 @@ Item::Item(sf::Texture Texture)
 void Item::init()
 {
 
+}
+
+void Item::set_position_item(int x, int y)
+{
+    _Sprite.setPosition(x, y);
 }
 
 void Item::display(sf::RenderWindow *_window)
