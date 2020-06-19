@@ -15,30 +15,29 @@ Graphic_client::Graphic_client()
     if (!_backgroundTexture.loadFromFile("assets/background.jpg"))
         exit(84);
     _backgroundSprite.setTexture(_backgroundTexture);
-    //_map.reserve(100);
-    //_stone.reserve(6);
-    //for (int i = 0; i != THYSTAME + 1; i++) {
-    //    _stone[i].reserve(100);
-    //}
+    _map.reserve(100);
 }
 
 void Graphic_client::init_map(std::string command)
 {
     int statut = 0;
     std::size_t found = 0;
+    std::string value;
 
     found = command.find(" ");
     if (found != std::string::npos)
         command = command.substr(found, command.size());
-    while (statut != 8) {
+    while (statut != 9) {
         found = command.find(" ");
         if (found != std::string::npos) {
-            std::string value = command.substr(0, found);
-            std::cout << command << std::endl;
-            command = command.substr(found, command.size());
+            value = command.substr(0, found);
+            if (value[0] != 0)
+                std::cout << value << std::endl;
+            command = command.substr(found + 1, command.size());
         }
         statut++;
     }
+    std::cout << command << std::endl;
 }
 
 void Graphic_client::run()

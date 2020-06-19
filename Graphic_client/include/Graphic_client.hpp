@@ -30,7 +30,6 @@ class Graphic_client {
         sf::Sprite _backgroundSprite;
         sf::Event event;
         std::vector<Map> _map;
-        std::vector<std::vector<Stone>> _stone;
 };
 
 #endif /* !GRAPHIC_CLIENT_H_ */
