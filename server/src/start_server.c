@@ -33,8 +33,9 @@ int manage_client(server_t* server)
 {
     player_t *player = NULL;
     
-    if (poll(server->fds, server->nb_fd, 100) == -1)
+    if (poll(server->fds, server->nb_fd, 0) == -1)
         return EXIT_FAILURE;
+    manage_jobs(server);
     if (server->fds[0].revents & POLLIN) {
         server->fds[server->nb_fd].fd = accept_client(server);
         server->fds[server->nb_fd].events = POLLIN;

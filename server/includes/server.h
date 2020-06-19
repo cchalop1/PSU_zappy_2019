@@ -47,13 +47,14 @@ typedef struct player_s {
     int team;
     int level;
     char* team_name;
-    int life;
+    float life;
     int pos_x;
     int pos_y;
     enum orientation orientation;
     int inventory[6];
     enum PLAYER_TYPE type;
     struct player_s* next;
+    bool is_egg;
 } player_t;
 
 typedef struct tile_s {
@@ -80,6 +81,7 @@ typedef struct server_s {
     map_t map;
     struct pollfd fds[MAX_CLIENTS];
     int nb_fd;
+    struct jobs_s* jobs;
 } server_t;
 
 typedef int (*exec_cmd)(server_t* server, player_t* player, char* cmd);
@@ -89,6 +91,18 @@ typedef struct command_s {
     exec_cmd exec;
     int settime;
 } command_t;
+
+static const char* objects[6]
+    = { "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame" };
+
+typedef struct jobs_s {
+    exec_cmd exec;
+    char* buffer;
+    player_t* player;
+    float end;
+    int time;
+    struct jobs_s* next;
+} jobs_t;
 
 // argv
 int parse_input(int argc, char* const argv[]);
@@ -103,6 +117,8 @@ int new_client(server_t* server);
 player_t* find_player_by_fd(server_t* server, int fd_find);
 player_t* find_player_graphic(server_t* server);
 int check_max_client(server_t* s, char* team_name);
+int add_job(server_t* server, command_t cmd, player_t* player, char* buffer);
+int manage_jobs(server_t* server);
 
 // utils
 char** parse_string_delim(const char* raw_str, const char* delim_raw);
@@ -138,6 +154,7 @@ int incantation(server_t* server, player_t* player, char* cmd);
 
 // other
 int vision(server_t*, player_t*);
+int find_broadcast_dir(player_t *, player_t *);
 
 // map
 void generate_map(server_t* server);

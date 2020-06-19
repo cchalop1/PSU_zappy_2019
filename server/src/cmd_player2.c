@@ -9,7 +9,20 @@
 
 int broadcast(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    player_t *list = server->players;
+    cmd[strlen(cmd) - 1] = '\0';
+    char *temp = cmd + 10;
+    char res[MAX_BODY_LENGTH];
+    char *s = res;
+
+    for (; list; list = list->next) {
+        if (list->fd != player->fd && !list->is_egg) {
+            sprintf(s, "messages %d, %s\n",
+            find_broadcast_dir(list, player), temp);
+            send_reply(list->fd, res);
+        }
+    }
+    return EXIT_SUCCESS;
 }
 
 int connect_nbr(server_t* server, player_t* player, char* cmd)
@@ -31,7 +44,22 @@ int connect_nbr(server_t* server, player_t* player, char* cmd)
 
 int fork_cmd_player(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    player_t *new_egg = malloc(sizeof(struct player_s));
+
+    new_egg->fd = -1;
+    new_egg->team = player->team;
+    new_egg->level = 1;
+    new_egg->life = (clock() * 1000 / CLOCKS_PER_SEC) + ((600 / server->freq) \
+    * 1000);
+    new_egg->team_name = strdup(player->team_name);
+    new_egg->pos_x = player->pos_x;
+    new_egg->pos_y = player->pos_y;
+    new_egg->orientation = (rand() % 4) + 1;
+    for (int x = 0; x < 6; x++)
+        new_egg->inventory[x] = 0;
+    new_egg->is_egg = true;
+    send_reply(player->fd, "ok\n");
+    return EXIT_SUCCESS;
 }
 
 int eject(server_t* server, player_t* player, char* cmd)
@@ -57,5 +85,21 @@ int eject(server_t* server, player_t* player, char* cmd)
 
 int take(server_t* server, player_t* player, char* cmd)
 {
-    // TODO: implem
+    char** res = parse_string_delim(cmd, " \n");
+    int stone = 0;
+
+    if (res[1] == NULL) {
+        send_reply(player->fd, "ko\n");
+        return EXIT_FAILURE;
+    }
+    for (int i = 0; i < 6; i++) {
+        if (strcmp(res[1], objects[i]) == 0) {
+            stone = server->map.tiles[player->pos_y][player->pos_x].stones[i];
+            if (stone > 0) {
+                server->map.tiles[player->pos_y][player->pos_x].stones[i]--;
+                player->inventory[i]++;
+            }
+        }
+    }
+    send_reply(player->fd, "ok\n");
 }
