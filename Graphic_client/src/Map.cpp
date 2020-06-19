@@ -12,8 +12,46 @@ Map::Map(std::vector<sf::Texture> &texture_item) : _texture_item(texture_item)
     if (!_Texture.loadFromFile("assets/map3.png"))
         exit(84);
     _Sprite.setTexture(_Texture);
-    _x = 100;
-    _y = 100;
+    _x = 450;
+    _y = 20;
+}
+
+void Map::init_x(int x)
+{
+    if (x != 0) {
+        x = x * 100;
+        _x = _x + x;
+    }
+}
+
+void Map::init_y(int y)
+{
+    if (y != 0) {
+        y = y * 100;
+        _y = _y + y;
+    }
+}
+
+void Map::rezise_tile(float nb)
+{
+    _Sprite.setScale(nb, nb);
+    _x = _x * nb;
+    _y = _y * nb;
+    _Sprite.setPosition(_x, _y);
+    for (int i = 0; i != _food.size(); i++)
+        _food[i].resize_item(nb);
+    for (int i = 0; i != _linemate.size(); i++)
+        _linemate[i].resize_item(nb);
+    for (int i = 0; i != _deraumere.size(); i++)
+        _deraumere[i].resize_item(nb);
+    for (int i = 0; i != _sibur.size(); i++)
+        _sibur[i].resize_item(nb);
+    for (int i = 0; i != _mendiane.size(); i++)
+        _mendiane[i].resize_item(nb);
+    for (int i = 0; i != _phiras.size(); i++)
+        _phiras[i].resize_item(nb);
+    for (int i = 0; i != _thystame.size(); i++)
+        _thystame[i].resize_item(nb);
 }
 
 void Map::set_item(int item, int nb)
@@ -25,7 +63,7 @@ void Map::set_item(int item, int nb)
         std::cout << nb << std::endl;
         for (int i = 0; i != nb; i++) {
             Item food(_texture_item[FOOD]);
-            food.set_position_item(_x, _y);
+            food.set_position_item(_x, _y, 0);
             _food.push_back(food);
         }
         break;
@@ -33,7 +71,7 @@ void Map::set_item(int item, int nb)
         _linemate.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item linemate(_texture_item[LINEMATE]);
-            linemate.set_position_item(_x, _y);
+            linemate.set_position_item(_x, _y, 0);
             _linemate.push_back(linemate);
         }
         break;
@@ -41,14 +79,14 @@ void Map::set_item(int item, int nb)
         _deraumere.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item deraumere(_texture_item[DERAUMERE]);
-            deraumere.set_position_item(_x, _y);
+            deraumere.set_position_item(_x, _y, 0);
             _deraumere.push_back(deraumere);
         }
     case SIBUR:
         _sibur.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item sibur(_texture_item[SIBUR]);
-            sibur.set_position_item(_x, _y);
+            sibur.set_position_item(_x, _y, 0);
             _sibur.push_back(sibur);
         }
         break;
@@ -56,7 +94,7 @@ void Map::set_item(int item, int nb)
         _mendiane.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item mendiane(_texture_item[MENDIANE]);
-            mendiane.set_position_item(_x, _y);
+            mendiane.set_position_item(_x, _y, 0);
             _mendiane.push_back(mendiane);
         }
         break;
@@ -64,7 +102,7 @@ void Map::set_item(int item, int nb)
         _phiras.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item phiras(_texture_item[PHIRAS]);
-            phiras.set_position_item(_x, _y);
+            phiras.set_position_item(_x, _y, 0);
             _phiras.push_back(phiras);
         }
         break;
@@ -72,7 +110,7 @@ void Map::set_item(int item, int nb)
         _thystame.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item thystame(_texture_item[THYSTAME]);
-            thystame.set_position_item(_x, _y);
+            thystame.set_position_item(_x, _y, 0);
             _thystame.push_back(thystame);
         }
         break;

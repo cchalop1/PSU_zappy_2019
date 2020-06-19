@@ -19,7 +19,8 @@ class Item {
         void set_can_draw(int nb) { if (nb == 1) {can_draw = true; } };
         bool get_can_draw() { return can_draw; };
         void display(sf::RenderWindow *_window);
-        void set_position_item(int x, int y);
+        void set_position_item(int x, int y, int nb);
+        void resize_item(float nb);
         ~Item();
     protected:
     private:

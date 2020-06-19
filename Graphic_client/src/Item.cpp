@@ -18,8 +18,18 @@ void Item::init()
 
 }
 
-void Item::set_position_item(int x, int y)
+void Item::resize_item(float nb)
 {
+    _Sprite.setScale(nb, nb);
+    _x = _x * nb;
+    _y = _y * nb;
+    _Sprite.setPosition(_x, _y);
+}
+
+void Item::set_position_item(int x, int y, int nb)
+{
+    _x = x;
+    _y = y;
     _Sprite.setPosition(x, y);
 }
 

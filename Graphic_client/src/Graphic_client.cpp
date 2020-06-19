@@ -12,9 +12,6 @@ Graphic_client::Graphic_client()
     _windowsize_x = sf::VideoMode::getDesktopMode().width;
     _windowsize_y = sf::VideoMode::getDesktopMode().height;
     _window.create(sf::VideoMode(_windowsize_x, _windowsize_y), "Zappy Graphic");
-    if (!_backgroundTexture.loadFromFile("assets/background.jpg"))
-        exit(84);
-    _backgroundSprite.setTexture(_backgroundTexture);
     _texture_item.reserve(7);
     if (!_texture_item[FOOD].loadFromFile("assets/food.png"))
         exit(84);
@@ -30,6 +27,10 @@ Graphic_client::Graphic_client()
         exit(84);
     if (!_texture_item[THYSTAME].loadFromFile("assets/thystame.png"))
         exit(84);
+    if (!_backgroundTexture.loadFromFile("assets/background.jpg"))
+        exit(84);
+    _backgroundSprite.setTexture(_backgroundTexture);
+    _index_map = 0;
 }
 
 void Graphic_client::init_class_graphic(int nb, int statut)
@@ -37,10 +38,10 @@ void Graphic_client::init_class_graphic(int nb, int statut)
     switch (statut)
     {
     case 1:
-        _map[_map.size()-1]->init_x(nb + 1);
+        _map[_map.size()-1]->init_x(nb);
         break;
     case 2:
-        _map[_map.size()-1]->init_y(nb + 1);
+        _map[_map.size()-1]->init_y(nb);
         break;
     case 3:
         _map[_map.size()-1]->set_item(FOOD, nb);
@@ -88,7 +89,7 @@ void Graphic_client::create_tile(std::string command)
         }
         statut++;
     }
-    std::cout << command << std::endl;
+    //std::cout << command << std::endl;
     _map[_map.size()-1]->init();
 }
 
@@ -103,6 +104,7 @@ void Graphic_client::create_all_tiles(std::string all_command)
         token = all_command_copy.substr(0, pos);
         create_tile(token);
         all_command_copy.erase(0, pos + delimiter.length());
+        _index_map++;
     }
 }
 
@@ -111,8 +113,23 @@ void Graphic_client::check_command(std::string command)
 
 }
 
+void Graphic_client::rezise_tiles(float nb)
+{
+    for (int i = 0; i != _map.size(); i++)
+        _map[i]->rezise_tile(nb);
+}
+
 void Graphic_client::run(std::string command)
 {
+    if (_index_map > 100 && _index_map < 220)
+        rezise_tiles(0.7);
+    if (_index_map >= 225 && _index_map < 280)
+        rezise_tiles(0.6);
+    if (_index_map >= 280 && _index_map <= 400)
+        rezise_tiles(0.5);
+    if (_index_map > 400)
+        rezise_tiles(0.4);
+    std::cout << _index_map << std::endl;
     while (_window.isOpen())
     {
         check_command(command);

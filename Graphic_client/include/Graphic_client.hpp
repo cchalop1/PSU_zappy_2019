@@ -23,6 +23,7 @@ class Graphic_client {
         void init_class_graphic(int nb, int statut);
         void run(std::string command);
         void check_command(std::string command);
+        void rezise_tiles(float nb);
         ~Graphic_client();
     protected:
     private:

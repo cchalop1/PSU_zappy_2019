@@ -15,13 +15,14 @@
 class Map {
     public:
         Map(std::vector<sf::Texture> &_texture_item);
-        void init_x(int x) { if (x != 1) { _x = _x * x; } std::cout << _x << std::endl; };
-        void init_y(int y) { if (y != 1) {_y = _y * y; } std::cout << _y << std::endl; };
+        void init_x(int x);
+        void init_y(int y);
         void init();
         void draw(sf::RenderWindow *_window);
         void set_item(int item, int nb);
         void setIndex(int index) { _index = index; };
         int getIndex() { return _index; };
+        void rezise_tile(float nb);
         ~Map();
     protected:
     private:
