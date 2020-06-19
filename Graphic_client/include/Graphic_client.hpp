@@ -12,7 +12,7 @@
 #include <string>
 #include <iostream>
 #include "Enum_Zappy_Client.hpp"
-#include "Stone.hpp"
+#include "Item.hpp"
 #include "Map.hpp"
 
 class Graphic_client {
@@ -31,13 +31,13 @@ class Graphic_client {
         sf::Sprite _backgroundSprite;
         sf::Event event;
         std::vector<Map> _map;
-        std::vector<Stone> _food;
-        std::vector<Stone> _linemate;
-        std::vector<Stone> _deraumere;
-        std::vector<Stone> _sibur;
-        std::vector<Stone> _mendiane;
-        std::vector<Stone> _phiras;
-        std::vector<Stone> _thystame;
+        std::vector<Item> _food;
+        std::vector<Item> _linemate;
+        std::vector<Item> _deraumere;
+        std::vector<Item> _sibur;
+        std::vector<Item> _mendiane;
+        std::vector<Item> _phiras;
+        std::vector<Item> _thystame;
         int _index_map;
         int _index_stone;
 };

@@ -16,6 +16,12 @@ Graphic_client::Graphic_client()
         exit(84);
     _backgroundSprite.setTexture(_backgroundTexture);
     _map.reserve(100);
+    _food.reserve(10);
+    _linemate.reserve(10);
+    _deraumere.reserve(10);
+    _sibur.reserve(10);
+    _mendiane.reserve(10);
+    _phiras.reserve(10);
     _index_map = 0;
     _index_stone = 0;
 }
@@ -25,28 +31,28 @@ void Graphic_client::init_class_graphic(int nb, int statut)
     switch (statut)
     {
     case 1:
-        _map[_index_map].init_x(nb);
+        _map[_index_map].init_x(nb + 1);
         break;
     case 2:
-        _map[_index_map].init_y(nb);
+        _map[_index_map].init_y(nb + 1);
         break;
     case 3:
-        _food[_index_stone].init();
+        _food[_index_stone].set_can_draw();
         break;
     case 4:
-        _linemate[_index_stone].init();
+        _linemate[_index_stone].set_can_draw();
         break;
     case 5:
-        _deraumere[_index_stone].init();
+        _deraumere[_index_stone].set_can_draw();
         break;
     case 6:
-        _sibur[_index_stone].init();
+        _sibur[_index_stone].set_can_draw();
         break;
     case 7:
-        _mendiane[_index_stone].init();
+        _mendiane[_index_stone].set_can_draw();
         break;
     case 8:
-        _phiras[_index_stone].init();
+        _phiras[_index_stone].set_can_draw();
         break;
     default:
         break;
@@ -89,6 +95,7 @@ void Graphic_client::run()
         }
         _window.clear();
         _window.draw(_backgroundSprite);
+        _window.draw(_map[0].get_sprite());
         _window.display();
     }
 }

@@ -10,17 +10,19 @@
 
 #include <SFML/Graphics.hpp>
 
-class Stone {
+class Item {
     public:
-        Stone();
+        Item();
         void init();
+        void set_can_draw() {can_draw = true; };
+        bool get_can_draw() { return can_draw; };
         void display();
-        ~Stone();
+        ~Item();
     protected:
     private:
         int _x;
         int _y;
-        int _index;
+        bool can_draw;
         sf::Texture _Texture;
         sf::Sprite _Sprite;
 };

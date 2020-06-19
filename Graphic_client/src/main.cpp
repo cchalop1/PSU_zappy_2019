@@ -23,7 +23,7 @@ void client_loop()
     //    found = command.find("bct");
     //}
     graphic.init_map(command);
-    //graphic.run();
+    graphic.run();
     /*while (command.size() != 0)
     {
         std::cout << command;

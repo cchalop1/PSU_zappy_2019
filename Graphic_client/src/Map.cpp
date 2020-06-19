@@ -9,11 +9,23 @@
 
 Map::Map()
 {
+    if (!_Texture.loadFromFile("assets/map3.png"))
+        exit(84);
+    _Sprite.setTexture(_Texture);
+    _x = 1;
+    _y = 1;
+    _Sprite.setPosition(_x, _y);
 }
 
 void Map::init()
 {
     std::cout << _x << " " << _y << std::endl;
+    _Sprite.setPosition(_x, _y);
+}
+
+sf::Sprite Map::get_sprite()
+{
+    return _Sprite;
 }
 
 Map::~Map()
