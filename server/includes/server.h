@@ -92,6 +92,9 @@ typedef struct command_s {
     int settime;
 } command_t;
 
+static const char* objects[6]
+    = { "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame" };
+
 typedef struct jobs_s {
     exec_cmd exec;
     char* buffer;
