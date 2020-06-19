@@ -15,10 +15,12 @@ int broadcast(server_t* server, player_t* player, char* cmd)
     char res[MAX_BODY_LENGTH];
     char *s = res;
 
-    s += sprintf(s, "messages %d, %s\n", rand() % 8 + 1, temp);
     for (; list; list = list->next) {
-        if (list->fd != player->fd && !list->is_egg)
+        if (list->fd != player->fd && !list->is_egg) {
+            sprintf(s, "messages %d, %s\n",
+            find_broadcast_dir(list, player), temp);
             send_reply(list->fd, res);
+        }
     }
     return EXIT_SUCCESS;
 }
