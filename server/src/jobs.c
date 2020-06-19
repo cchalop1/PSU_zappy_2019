@@ -14,8 +14,8 @@ int add_job(server_t* server, command_t cmd, player_t* player, char* buffer)
 
     new_jobs->exec = cmd.exec;
     new_jobs->time = cmd.settime;
-    new_jobs->end = (clock() * 1000 / CLOCKS_PER_SEC)
-        + ((new_jobs->time / server->freq) * 1000);
+    new_jobs->end = (((float)clock() / CLOCKS_PER_SEC) * 1000.0)
+        + ((new_jobs->time / server->freq) * 1000.0);
     new_jobs->player = player;
     new_jobs->buffer = strdup(buffer);
     new_jobs->next = NULL;
@@ -30,11 +30,14 @@ int add_job(server_t* server, command_t cmd, player_t* player, char* buffer)
     return EXIT_SUCCESS;
 }
 
-static void manage_life_player(server_t* server) {
-    player_t *copy_player = server->players;
+static void manage_life_player(server_t* server)
+{
+    player_t* copy_player = server->players;
 
     for (; copy_player; copy_player = copy_player->next) {
-        if (copy_player->life != 10 && (unsigned long)(clock() * 1000 / CLOCKS_PER_SEC) * 1000 > copy_player->life) {
+        if (copy_player->life != 0
+            && (((float)clock() / CLOCKS_PER_SEC) * 1000.0)
+                > copy_player->life) {
             send_reply(copy_player->fd, "dead\n");
             close(copy_player->fd);
         }
@@ -48,8 +51,7 @@ int manage_jobs(server_t* server)
     manage_life_player(server);
     if (current_jobs == NULL)
         return EXIT_FAILURE;
-    if ((unsigned long)(clock() * 1000 / CLOCKS_PER_SEC) * 1000
-        > current_jobs->end) {
+    if (((float)clock() / CLOCKS_PER_SEC) * 1000.0 > current_jobs->end) {
         server->jobs->exec(server, current_jobs->player, current_jobs->buffer);
         server->jobs = server->jobs->next;
     }

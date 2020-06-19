@@ -47,7 +47,7 @@ typedef struct player_s {
     int team;
     int level;
     char* team_name;
-    unsigned long life;
+    float life;
     int pos_x;
     int pos_y;
     enum orientation orientation;
@@ -99,7 +99,7 @@ typedef struct jobs_s {
     exec_cmd exec;
     char* buffer;
     player_t* player;
-    unsigned long end;
+    float end;
     int time;
     struct jobs_s* next;
 } jobs_t;
