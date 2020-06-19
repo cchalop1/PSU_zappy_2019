@@ -18,7 +18,8 @@
 class Graphic_client {
     public:
         Graphic_client();
-        void init_graph(std::string command);
+        void create_tile(std::string command);
+        void create_all_tiles(std::string all_command);
         void init_class_graphic(int nb, int statut);
         void run(std::string command);
         void check_command(std::string command);

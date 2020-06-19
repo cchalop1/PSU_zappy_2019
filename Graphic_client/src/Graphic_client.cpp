@@ -15,10 +15,6 @@ Graphic_client::Graphic_client()
     if (!_backgroundTexture.loadFromFile("assets/background.jpg"))
         exit(84);
     _backgroundSprite.setTexture(_backgroundTexture);
-    _map.reserve(100);
-    for (int i = 0; i != 10; i++)
-        _map[i] = new Map;
-    _index_map = 0;
 }
 
 void Graphic_client::init_class_graphic(int nb, int statut)
@@ -26,43 +22,44 @@ void Graphic_client::init_class_graphic(int nb, int statut)
     switch (statut)
     {
     case 1:
-        _map[_index_map]->init_x(nb + 1);
+        _map[_map.size()-1]->init_x(nb + 1);
         break;
     case 2:
-        _map[_index_map]->init_y(nb + 1);
+        _map[_map.size()-1]->init_y(nb + 1);
         break;
     case 3:
-        _map[_index_map]->set_item(FOOD, nb);
+        _map[_map.size()-1]->set_item(FOOD, nb);
         break;
     case 4:
-        _map[_index_map]->set_item(LINEMATE, nb);
+        _map[_map.size()-1]->set_item(LINEMATE, nb);
         break;
     case 5:
-        _map[_index_map]->set_item(DERAUMERE, nb);
+        _map[_map.size()-1]->set_item(DERAUMERE, nb);
         break;
     case 6:
-        _map[_index_map]->set_item(SIBUR, nb);
+        _map[_map.size()-1]->set_item(SIBUR, nb);
         break;
     case 7:
-        _map[_index_map]->set_item(MENDIANE, nb);
+        _map[_map.size()-1]->set_item(MENDIANE, nb);
         break;
     case 8:
-        _map[_index_map]->set_item(PHIRAS, nb);
+        _map[_map.size()-1]->set_item(PHIRAS, nb);
         break;
     case 9:
-        _map[_index_map]->set_item(THYSTAME, nb);
+        _map[_map.size()-1]->set_item(THYSTAME, nb);
         break;
     default:
         break;
     }
 }
 
-void Graphic_client::init_graph(std::string command)
+void Graphic_client::create_tile(std::string command)
 {
     int statut = 0;
     std::size_t found = 0;
     std::string value;
 
+    _map.push_back(new Map);
     found = command.find(" ");
     if (found != std::string::npos)
         command = command.substr(found, command.size());
@@ -77,8 +74,21 @@ void Graphic_client::init_graph(std::string command)
         statut++;
     }
     std::cout << command << std::endl;
-    _map[_index_map]->init();
-    _index_map++;
+    _map[_map.size()-1]->init();
+}
+
+void Graphic_client::create_all_tiles(std::string all_command)
+{
+    size_t pos = 0;
+    std::string token;
+    std::string all_command_copy = all_command;
+    std::string delimiter = "\n";
+
+    while ((pos = all_command_copy.find(delimiter)) != std::string::npos) {
+        token = all_command_copy.substr(0, pos);
+        create_tile(token);
+        all_command_copy.erase(0, pos + delimiter.length());
+    }
 }
 
 void Graphic_client::check_command(std::string command)
@@ -88,7 +98,7 @@ void Graphic_client::check_command(std::string command)
 
 void Graphic_client::run(std::string command)
 {
-    init_graph(command);
+    create_tile(command);
     while (_window.isOpen())
     {
         check_command(command);
