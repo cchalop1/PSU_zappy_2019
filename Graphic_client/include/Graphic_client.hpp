@@ -30,7 +30,7 @@ class Graphic_client {
         sf::Texture _backgroundTexture;
         sf::Sprite _backgroundSprite;
         sf::Event event;
-        std::vector<Map> _map;
+        std::vector<Map *> _map;
         std::vector<Item> _food;
         std::vector<Item> _linemate;
         std::vector<Item> _deraumere;

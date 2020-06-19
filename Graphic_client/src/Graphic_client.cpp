@@ -31,10 +31,10 @@ void Graphic_client::init_class_graphic(int nb, int statut)
     switch (statut)
     {
     case 1:
-        _map[_index_map].init_x(nb + 1);
+        _map[_index_map]->init_x(nb + 1);
         break;
     case 2:
-        _map[_index_map].init_y(nb + 1);
+        _map[_index_map]->init_y(nb + 1);
         break;
     case 3:
         _food[_index_stone].set_can_draw();
@@ -72,14 +72,16 @@ void Graphic_client::init_map(std::string command)
         found = command.find(" ");
         if (found != std::string::npos) {
             value = command.substr(0, found);
-            if (value[0] != 0)
+            if (value[0] != 0) {
+                _map[_index_map] = new Map;
                 init_class_graphic(atoi(value.c_str()), statut);
+            }
             command = command.substr(found + 1, command.size());
         }
         statut++;
     }
     std::cout << command << std::endl;
-    _map[_index_map].init();
+    _map[_index_map]->init();
     _index_map++;
     _index_stone++;
 }
@@ -95,7 +97,7 @@ void Graphic_client::run()
         }
         _window.clear();
         _window.draw(_backgroundSprite);
-        _window.draw(_map[0].get_sprite());
+        _window.draw(_map[_index_map]->get_sprite());
         _window.display();
     }
 }

@@ -12,9 +12,8 @@ Map::Map()
     if (!_Texture.loadFromFile("assets/map3.png"))
         exit(84);
     _Sprite.setTexture(_Texture);
-    _x = 1;
-    _y = 1;
-    _Sprite.setPosition(_x, _y);
+    _x = 100;
+    _y = 100;
 }
 
 void Map::init()
