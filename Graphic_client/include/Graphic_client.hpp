@@ -33,6 +33,7 @@ class Graphic_client {
         sf::Sprite _backgroundSprite;
         sf::Event event;
         std::vector<Map *> _map;
+        std::vector<sf::Texture> _texture_item;
         int _index_map;
 };
 

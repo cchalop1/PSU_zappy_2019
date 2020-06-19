@@ -7,23 +7,9 @@
 
 #include "../include/Map.hpp"
 
-Map::Map()
+Map::Map(std::vector<sf::Texture> texture_item)
 {
-    _texture_item.reserve(7);
-    if (!_texture_item[FOOD].loadFromFile("assets/food.png"))
-        exit(84);
-    if (!_texture_item[LINEMATE].loadFromFile("assets/linemate.png"))
-        exit(84);
-    if (!_texture_item[DERAUMERE].loadFromFile("assets/deraumere.png"))
-        exit(84);
-    if (!_texture_item[SIBUR].loadFromFile("assets/sibur.png"))
-        exit(84);
-    if (!_texture_item[MENDIANE].loadFromFile("assets/mendiane.png"))
-        exit(84);
-    if (!_texture_item[PHIRAS].loadFromFile("assets/phiras.png"))
-        exit(84);
-    if (!_texture_item[THYSTAME].loadFromFile("assets/thystame.png"))
-        exit(84);
+    _texture_item = texture_item;
     if (!_Texture.loadFromFile("assets/map3.png"))
         exit(84);
     _Sprite.setTexture(_Texture);

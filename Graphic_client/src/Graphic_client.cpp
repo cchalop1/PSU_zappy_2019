@@ -15,6 +15,21 @@ Graphic_client::Graphic_client()
     if (!_backgroundTexture.loadFromFile("assets/background.jpg"))
         exit(84);
     _backgroundSprite.setTexture(_backgroundTexture);
+    _texture_item.reserve(7);
+    if (!_texture_item[FOOD].loadFromFile("assets/food.png"))
+        exit(84);
+    if (!_texture_item[LINEMATE].loadFromFile("assets/linemate.png"))
+        exit(84);
+    if (!_texture_item[DERAUMERE].loadFromFile("assets/deraumere.png"))
+        exit(84);
+    if (!_texture_item[SIBUR].loadFromFile("assets/sibur.png"))
+        exit(84);
+    if (!_texture_item[MENDIANE].loadFromFile("assets/mendiane.png"))
+        exit(84);
+    if (!_texture_item[PHIRAS].loadFromFile("assets/phiras.png"))
+        exit(84);
+    if (!_texture_item[THYSTAME].loadFromFile("assets/thystame.png"))
+        exit(84);
 }
 
 void Graphic_client::init_class_graphic(int nb, int statut)
@@ -59,7 +74,7 @@ void Graphic_client::create_tile(std::string command)
     std::size_t found = 0;
     std::string value;
 
-    _map.push_back(new Map);
+    _map.push_back(new Map(_texture_item));
     found = command.find(" ");
     if (found != std::string::npos)
         command = command.substr(found, command.size());
