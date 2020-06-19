@@ -37,22 +37,22 @@ void Graphic_client::init_class_graphic(int nb, int statut)
         _map[_index_map]->init_y(nb + 1);
         break;
     case 3:
-        _food[_index_stone].set_can_draw();
+        _food[_index_stone].set_can_draw(nb);
         break;
     case 4:
-        _linemate[_index_stone].set_can_draw();
+        _linemate[_index_stone].set_can_draw(nb);
         break;
     case 5:
-        _deraumere[_index_stone].set_can_draw();
+        _deraumere[_index_stone].set_can_draw(nb);
         break;
     case 6:
-        _sibur[_index_stone].set_can_draw();
+        _sibur[_index_stone].set_can_draw(nb);
         break;
     case 7:
-        _mendiane[_index_stone].set_can_draw();
+        _mendiane[_index_stone].set_can_draw(nb);
         break;
     case 8:
-        _phiras[_index_stone].set_can_draw();
+        _phiras[_index_stone].set_can_draw(nb);
         break;
     default:
         break;

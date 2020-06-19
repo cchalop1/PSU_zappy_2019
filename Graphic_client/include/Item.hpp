@@ -14,7 +14,7 @@ class Item {
     public:
         Item();
         void init();
-        void set_can_draw() {can_draw = true; };
+        void set_can_draw(int nb) { if (nb == 1) {can_draw = true; } };
         bool get_can_draw() { return can_draw; };
         void display();
         ~Item();
