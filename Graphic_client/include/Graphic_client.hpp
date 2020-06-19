@@ -19,6 +19,7 @@ class Graphic_client {
     public:
         Graphic_client();
         void init_map(std::string command);
+        void init_class_graphic(int nb, int statut);
         void run();
         ~Graphic_client();
     protected:
@@ -30,6 +31,15 @@ class Graphic_client {
         sf::Sprite _backgroundSprite;
         sf::Event event;
         std::vector<Map> _map;
+        std::vector<Stone> _food;
+        std::vector<Stone> _linemate;
+        std::vector<Stone> _deraumere;
+        std::vector<Stone> _sibur;
+        std::vector<Stone> _mendiane;
+        std::vector<Stone> _phiras;
+        std::vector<Stone> _thystame;
+        int _index_map;
+        int _index_stone;
 };
 
 #endif /* !GRAPHIC_CLIENT_H_ */

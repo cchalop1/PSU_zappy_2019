@@ -16,6 +16,41 @@ Graphic_client::Graphic_client()
         exit(84);
     _backgroundSprite.setTexture(_backgroundTexture);
     _map.reserve(100);
+    _index_map = 0;
+    _index_stone = 0;
+}
+
+void Graphic_client::init_class_graphic(int nb, int statut)
+{
+    switch (statut)
+    {
+    case 1:
+        _map[_index_map].init_x(nb);
+        break;
+    case 2:
+        _map[_index_map].init_y(nb);
+        break;
+    case 3:
+        _food[_index_stone].init();
+        break;
+    case 4:
+        _linemate[_index_stone].init();
+        break;
+    case 5:
+        _deraumere[_index_stone].init();
+        break;
+    case 6:
+        _sibur[_index_stone].init();
+        break;
+    case 7:
+        _mendiane[_index_stone].init();
+        break;
+    case 8:
+        _phiras[_index_stone].init();
+        break;
+    default:
+        break;
+    }
 }
 
 void Graphic_client::init_map(std::string command)
@@ -32,12 +67,15 @@ void Graphic_client::init_map(std::string command)
         if (found != std::string::npos) {
             value = command.substr(0, found);
             if (value[0] != 0)
-                std::cout << value << std::endl;
+                init_class_graphic(atoi(value.c_str()), statut);
             command = command.substr(found + 1, command.size());
         }
         statut++;
     }
     std::cout << command << std::endl;
+    _map[_index_map].init();
+    _index_map++;
+    _index_stone++;
 }
 
 void Graphic_client::run()

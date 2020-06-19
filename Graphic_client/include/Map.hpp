@@ -9,10 +9,15 @@
 #define MAP_HPP_
 
 #include <SFML/Graphics.hpp>
-
+#include <iostream>
 class Map {
     public:
         Map();
+        void init_x(int x) { _x = x; };
+        void init_y(int y) { _y = y; };
+        void init();
+        void setIndex(int index) { _index = index; };
+        int getIndex() { return _index; };
         ~Map();
     protected:
     private:
