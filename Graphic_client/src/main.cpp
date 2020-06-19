@@ -8,11 +8,13 @@
 #include "../include/Graphic_client.hpp"
 #include "../include/Client.hpp"
 
-void client_loop()
+void client_loop(Client client)
 {
     Graphic_client graphic;
 
-    std::string command = "bct 0 0 0 0 1 0 0 1 0";
+    //std::string command = "bct 0 0 0 0 1 0 0 1 0";
+    std::string command;
+    client.send_command("GRAPHIC");
     //client.send_command("GRAPHIC");
         //command.clear();
     //command = client.receive_answer();
@@ -38,7 +40,7 @@ int main(int argc, char const *argv[])
 {
     if (argc != 3)
         return 84;
-    //Client client(argv);
-    client_loop();
+    Client client(argv);
+    client_loop(client);
     return 0;
 }
