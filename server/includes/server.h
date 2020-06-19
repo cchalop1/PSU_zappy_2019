@@ -47,7 +47,7 @@ typedef struct player_s {
     int team;
     int level;
     char* team_name;
-    unsigned long life;
+    float life;
     int pos_x;
     int pos_y;
     enum orientation orientation;
@@ -79,6 +79,7 @@ typedef struct server_s {
     char** team_names;
     player_t* players;
     map_t map;
+    // long clock_start;
     struct pollfd fds[MAX_CLIENTS];
     int nb_fd;
     struct jobs_s* jobs;

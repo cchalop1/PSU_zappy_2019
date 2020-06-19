@@ -10,26 +10,17 @@
 const int number_of_commands_graph = 7;
 const int number_of_commands = 13;
 
-static const command_t COMMANDS_GRAPH[]
-    = { { "", error_cmd, 0 }, { "msz", map_size, 0 }, { "bct", content_of_a_tile, 0 },
-          { "mct", content_of_all_tile, 0 }, { "tna", name_of_all_teams, 0 },
-          { "sgt", time_unit_request, 0 }, { "ppo", player_pos, 0 } };
+static const command_t COMMANDS_GRAPH[] = { { "", error_cmd, 0 },
+    { "msz", map_size, 0 }, { "bct", content_of_a_tile, 0 },
+    { "mct", content_of_all_tile, 0 }, { "tna", name_of_all_teams, 0 },
+    { "sgt", time_unit_request, 0 }, { "ppo", player_pos, 0 } };
 
-static const command_t COMMANDS[] = {
-    { "", error_cmd, 0 },
-    { "Forward", forward, 7 },
-    { "Right", right, 7 },
-    { "Left", left, 7 },
-    { "Look", look, 7 },
-    { "Inventory", inventory, 1 },
-    { "Broadcast", broadcast, 7 },
-    { "Connect_nbr", connect_nbr, 0 },
-    { "Fork", fork_cmd_player, 42 },
-    { "Eject", eject, 7 },
-    { "Take", take, 7 },
-    { "Set", set, 7 },
-    { "Incantation", incantation, 300 }
-};
+static const command_t COMMANDS[] = { { "", error_cmd, 0 },
+    { "Forward", forward, 7 }, { "Right", right, 7 }, { "Left", left, 7 },
+    { "Look", look, 7 }, { "Inventory", inventory, 1 },
+    { "Broadcast", broadcast, 7 }, { "Connect_nbr", connect_nbr, 0 },
+    { "Fork", fork_cmd_player, 42 }, { "Eject", eject, 7 }, { "Take", take, 7 },
+    { "Set", set, 7 }, { "Incantation", incantation, 300 } };
 
 static command_t find_command(const char* buffer, int len)
 {
@@ -71,8 +62,8 @@ static void new_player(server_t* server, player_t* player, int i)
 
     player->type = PLAYER;
     player->team_name = strdup(server->team_names[i]);
-    player->life
-        = (clock() * 1000 / CLOCKS_PER_SEC) + ((1260 / server->freq) * 1000);
+    player->life = (((float)clock() / CLOCKS_PER_SEC) * 1000.0)
+        + ((1260.0 / server->freq) * 1000.0);
     player->inventory[0] = 0;
     player->inventory[1] = 0;
     player->inventory[2] = 0;
@@ -102,7 +93,7 @@ static int login_client(const char* buffer, player_t* player, server_t* server)
             new_player(server, player, i);
             return EXIT_SUCCESS;
         }
-    }   
+    }
     send_reply(player->fd, "ko\n");
     for (int i = 0; str[i]; i++)
         free(str[i]);
@@ -126,8 +117,7 @@ int handle_client_cmd(server_t* server, player_t* player)
     if (player->type == PLAYER) {
         cmd = find_command(buffer, len);
         add_job(server, cmd, player, buffer);
-    }
-    else if (player->type == GRAPHIC) {
+    } else if (player->type == GRAPHIC) {
         cmd = find_command_graphic(buffer, len);
         cmd.exec(server, player, buffer);
 
