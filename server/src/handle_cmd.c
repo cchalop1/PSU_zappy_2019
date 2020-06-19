@@ -71,6 +71,8 @@ static void new_player(server_t* server, player_t* player, int i)
 
     player->type = PLAYER;
     player->team_name = strdup(server->team_names[i]);
+    player->life
+        = (clock() * 1000 / CLOCKS_PER_SEC) + ((1260 / server->freq) * 1000);
     player->inventory[0] = 0;
     player->inventory[1] = 0;
     player->inventory[2] = 0;
@@ -121,13 +123,15 @@ int handle_client_cmd(server_t* server, player_t* player)
         close(player->fd);
         return EXIT_SUCCESS;
     }
-    if (player->type == PLAYER)
+    if (player->type == PLAYER) {
         cmd = find_command(buffer, len);
-    else if (player->type == GRAPHIC)
+        add_job(server, cmd, player, buffer);
+    }
+    else if (player->type == GRAPHIC) {
         cmd = find_command_graphic(buffer, len);
-    else
+        cmd.exec(server, player, buffer);
+
+    } else
         return login_client(buffer, player, server);
-    if (cmd.exec(server, player, buffer))
-        return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }

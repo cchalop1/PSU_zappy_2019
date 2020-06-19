@@ -41,8 +41,8 @@ static int fill_server_struct(server_t* server, int opt, const char** argv)
         server->freq = atoi(optarg);
         break;
     case 'n':
-        for (int count = 0;
-             count + (optind - 1) < (server->clients_nb + (optind - 1));
+        for (int count = 0; argv[count + (optind - 1)]
+             && !strrchr(argv[count + (optind - 1)], '-');
              count++) {
             server->team_names
                 = realloc(server->team_names, sizeof(char*) * (count + 2));
@@ -65,6 +65,7 @@ server_t parse_server_input(int argc, const char** argv)
     server.nb_fd = 0;
     server.players = NULL;
     server.freq = 100;
+    server.jobs = NULL;
     while ((opt = getopt(argc, (char** const)argv, "p:x:y:n:c:f:")) != -1) {
         fill_server_struct(&server, opt, argv);
     }
