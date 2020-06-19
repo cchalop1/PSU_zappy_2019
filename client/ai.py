@@ -34,17 +34,6 @@ class ai(ai_actions):
             return True
         return False
 
-    def get_return(self):
-        ret = self.sock.recv(5000).decode()
-        print(ret)
-        if ret == "dead\n":
-            self.is_dead()
-        return ret
-
-    def is_dead(self):
-        print("I'm starving ...")
-        self.__del__()
-
     def get_connect_nbr(self):
         self.Connect_nbr()
         return int(self.get_return())
@@ -70,6 +59,8 @@ class ai(ai_actions):
         ret.replace(']', '')
         ret.replace('[', '')
         ret.split(', ')
+        ret.split(' ')
+        print("ret =", ret)
         for i in ret:
             a = i.split(' ')
             self.vision.append(a)
@@ -115,6 +106,7 @@ class ai(ai_actions):
         i = 0
         print("seach path to :", obj)
         while (i < len(self.vision)):
+            print("vision = ",self.vision[i])
             if obj in self.vision[i]:
                 print("path find")
                 return self.get_path(i)
@@ -130,6 +122,7 @@ class ai(ai_actions):
         return p
 
     def get_object(self, obj):
+        print("obj =", obj)
         p = self.find_that(obj)
         if p.forward == -1:
             self.walk()
