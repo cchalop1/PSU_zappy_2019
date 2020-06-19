@@ -39,6 +39,7 @@ class ai_actions(ai_stats, Client):
         self.sock.send(("Forward\n").encode())
         print("Forward")
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #turn 90o right
     def Right(self):
@@ -46,6 +47,7 @@ class ai_actions(ai_stats, Client):
         self.sock.send(("Right\n").encode())
         print("Right")
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #turn 90o left
     def Left(self):
@@ -53,6 +55,7 @@ class ai_actions(ai_stats, Client):
         self.sock.send(("Left\n").encode())
         print("Left")
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #look around
     def Look(self):
@@ -60,6 +63,7 @@ class ai_actions(ai_stats, Client):
         self.sock.send(("Look\n").encode())
         print("Look")
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #inventory
     def Inventory(self):
@@ -67,18 +71,21 @@ class ai_actions(ai_stats, Client):
         self.sock.send(("Inventory\n").encode())
         print("Inventory")
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #number of team unused slots
     def Connect_nbr(self):
         self.time_unit -= act_dur["Connect_nbr"]
         self.sock.send(("Connect_nbr\n").encode())
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #fork a player
     def Fork(self):
         self.time_unit -= act_dur["Fork"]
         self.sock.send(("Fork\n").encode())
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #eject players from this tile
     def Eject(self):
@@ -86,6 +93,7 @@ class ai_actions(ai_stats, Client):
         self.sock.send(("Eject\n").encode())
         print("Eject")
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #take object
     def Take(self, obj):
@@ -93,18 +101,21 @@ class ai_actions(ai_stats, Client):
         self.sock.send(("Look " + obj +"\n").encode())
         print("Take")
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #set object down
     def Set(self, obj):
         self.time_unit -= act_dur["Set"]
         self.sock.send(("Set " + obj + "\n").encode())
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #broadcast text
     def Broadcast(self, text):
         self.time_unit -= act_dur["Broadcast"]
         self.sock.send(("Broadcast " + text + "\n").encode())
         self.reply = self.sock.recv(5000).decode()
+        print(self.reply)
 
     #start incantation
     def Incantation(self):

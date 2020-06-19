@@ -15,7 +15,6 @@ class ai(ai_actions):
 
     def loop(self):
         while 1:
-            print(self.reply)
             self.select_action()
 
     def select_action(self):
@@ -114,16 +113,20 @@ class ai(ai_actions):
     ### can do better ?
     def _find_that(self, obj):
         i = 0
+        print("seach path to :", obj)
         while (i < len(self.vision)):
             if obj in self.vision[i]:
+                print("path find")
                 return self.get_path(i)
             i += 1
+        print("no path find")
         return path(-1,-1,-1)
 
     def find_that(self, obj):
         p = path(0,0,0)
         self.get_look()
         p = self._find_that(obj)
+        print("p =", p)
         return p
 
     def get_object(self, obj):
