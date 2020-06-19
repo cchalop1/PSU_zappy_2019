@@ -79,7 +79,6 @@ typedef struct server_s {
     char** team_names;
     player_t* players;
     map_t map;
-    // long clock_start;
     struct pollfd fds[MAX_CLIENTS];
     int nb_fd;
     struct jobs_s* jobs;
@@ -97,7 +96,7 @@ typedef struct jobs_s {
     exec_cmd exec;
     char* buffer;
     player_t* player;
-    unsigned long end;
+    float end;
     int time;
     struct jobs_s* next;
 } jobs_t;
