@@ -9,14 +9,14 @@
 #define STONE_HPP_
 
 #include <SFML/Graphics.hpp>
-
+#include "Enum_Zappy_Client.hpp"
 class Item {
     public:
-        Item();
+        Item(int nb);
         void init();
         void set_can_draw(int nb) { if (nb == 1) {can_draw = true; } };
         bool get_can_draw() { return can_draw; };
-        void display();
+        void display(sf::RenderWindow *_window);
         ~Item();
     protected:
     private:

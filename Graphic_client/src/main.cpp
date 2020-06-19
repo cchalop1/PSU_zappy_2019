@@ -12,20 +12,14 @@ void client_loop(Client client)
 {
     Graphic_client graphic;
 
-    //std::string command = "bct 0 0 0 0 1 0 0 1 0";
-    std::string command;
-    client.send_command("GRAPHIC");
+    std::string command = "bct 0 0 0 0 1 0 0 1 0";
+    //std::string command;
+    //client.send_command("GRAPHIC");
     //client.send_command("GRAPHIC");
         //command.clear();
     //command = client.receive_answer();
-    //std::size_t found = command.find("bct");
-    //while (found != std::string::npos) {
-    //    std::cout << command;
-    //    command = client.receive_answer();
-    //    found = command.find("bct");
-    //}
-    graphic.init_map(command);
-    graphic.run();
+    std::cout << command << std::endl;
+    graphic.run(command);
     /*while (command.size() != 0)
     {
         std::cout << command;
