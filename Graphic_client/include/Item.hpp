@@ -12,7 +12,7 @@
 #include "Enum_Zappy_Client.hpp"
 class Item {
     public:
-        Item(int nb);
+        Item(sf::Texture Texture);
         void init();
         void set_can_draw(int nb) { if (nb == 1) {can_draw = true; } };
         bool get_can_draw() { return can_draw; };

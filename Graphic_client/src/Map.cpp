@@ -9,6 +9,21 @@
 
 Map::Map()
 {
+    _texture_item.reserve(7);
+    if (!_texture_item[FOOD].loadFromFile("assets/food.png"))
+        exit(84);
+    if (!_texture_item[LINEMATE].loadFromFile("assets/linemate.png"))
+        exit(84);
+    if (!_texture_item[DERAUMERE].loadFromFile("assets/deraumere.png"))
+        exit(84);
+    if (!_texture_item[SIBUR].loadFromFile("assets/sibur.png"))
+        exit(84);
+    if (!_texture_item[MENDIANE].loadFromFile("assets/mendiane.png"))
+        exit(84);
+    if (!_texture_item[PHIRAS].loadFromFile("assets/phiras.png"))
+        exit(84);
+    if (!_texture_item[THYSTAME].loadFromFile("assets/thystame.png"))
+        exit(84);
     if (!_Texture.loadFromFile("assets/map3.png"))
         exit(84);
     _Sprite.setTexture(_Texture);
@@ -24,48 +39,48 @@ void Map::set_item(int item, int nb)
     case FOOD:
         _food.reserve(nb);
         for (int i = 0; i != nb; i++) {
-            Item food(FOOD);
+            Item food(_texture_item[FOOD]);
             _food[i] = food;
         }
         break;
     case LINEMATE:
         _linemate.reserve(nb);
         for (int i = 0; i != nb; i++) {
-            Item linemate(LINEMATE);
+            Item linemate(_texture_item[LINEMATE]);
             _linemate[i] = linemate;
         }
         break;
     case DERAUMERE:
         _deraumere.reserve(nb);
         for (int i = 0; i != nb; i++) {
-            Item deraumere(DERAUMERE);
+            Item deraumere(_texture_item[DERAUMERE]);
             _deraumere[i] = deraumere;
         }
     case SIBUR:
         _sibur.reserve(nb);
         for (int i = 0; i != nb; i++) {
-            Item sibur(SIBUR);
+            Item sibur(_texture_item[SIBUR]);
             _sibur[i] = sibur;
         }
         break;
     case MENDIANE:
         _mendiane.reserve(nb);
         for (int i = 0; i != nb; i++) {
-            Item mendiane(MENDIANE);
+            Item mendiane(_texture_item[MENDIANE]);
             _mendiane[i] = mendiane;
         }
         break;
     case PHIRAS:
         _phiras.reserve(nb);
         for (int i = 0; i != nb; i++) {
-            Item phiras(PHIRAS);
+            Item phiras(_texture_item[PHIRAS]);
             _phiras[i] = phiras;
         }
         break;
     case THYSTAME:
         _thystame.reserve(nb);
         for (int i = 0; i != nb; i++) {
-            Item thystame(THYSTAME);
+            Item thystame(_texture_item[THYSTAME]);
             _thystame[i] = thystame;
         }
         break;
@@ -91,20 +106,20 @@ void Map::draw(sf::RenderWindow *_window)
     //std::cout << "mendiane " << _mendiane.size() << std::endl;
     //std::cout << "phiras " << _phiras.size() << std::endl;
     //std::cout << "thystame " << _thystame.size() << std::endl;
-    for (int i = 0; i != _food.size(); i++)
-        _food[i].display(_window);
-    for (int i = 0; i != _linemate.size(); i++)
-       _linemate[i].display(_window);
-    for (int i = 0; i != _deraumere.size(); i++)
-        _deraumere[i].display(_window);
-    for (int i = 0; i != _sibur.size(); i++)
-        _sibur[i].display(_window);
-    for (int i = 0; i != _mendiane.size(); i++)
-        _mendiane[i].display(_window);
-    for (int i = 0; i != _phiras.size(); i++)
-        _phiras[i].display(_window);
-    for (int i = 0; i != _thystame.size(); i++)
-        _thystame[i].display(_window);
+    //for (int i = 0; i != _food.size(); i++)
+    //    _food[i].display(_window);
+    //for (int i = 0; i != _linemate.size(); i++)
+    //   _linemate[i].display(_window);
+    //for (int i = 0; i != _deraumere.size(); i++)
+    //    _deraumere[i].display(_window);
+    //for (int i = 0; i != _sibur.size(); i++)
+    //    _sibur[i].display(_window);
+    //for (int i = 0; i != _mendiane.size(); i++)
+    //    _mendiane[i].display(_window);
+    //for (int i = 0; i != _phiras.size(); i++)
+    //    _phiras[i].display(_window);
+    //for (int i = 0; i != _thystame.size(); i++)
+    //    _thystame[i].display(_window);
 }
 
 Map::~Map()

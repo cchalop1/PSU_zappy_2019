@@ -31,6 +31,7 @@ class Map {
         sf::RenderWindow *_window;
         sf::Texture _Texture;
         sf::Sprite _Sprite;
+        std::vector<sf::Texture> _texture_item;
         std::vector<Item> _food;
         std::vector<Item> _linemate;
         std::vector<Item> _deraumere;

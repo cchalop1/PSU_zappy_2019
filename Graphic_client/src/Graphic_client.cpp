@@ -16,7 +16,7 @@ Graphic_client::Graphic_client()
         exit(84);
     _backgroundSprite.setTexture(_backgroundTexture);
     _map.reserve(100);
-    for (int i = 0; i != 100; i++)
+    for (int i = 0; i != 10; i++)
         _map[i] = new Map;
     _index_map = 0;
 }
