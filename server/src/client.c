@@ -68,3 +68,27 @@ player_t* find_player_graphic(server_t* server)
     }
     return NULL;
 }
+
+int remove_player(server_t *s, player_t *p)
+{
+    player_t *copy = s->players;
+    player_t *temp = NULL;
+
+    if (copy && copy->fd == p->fd) {
+        s->players = copy->next ? copy->next : NULL;
+        temp = copy;
+    } else
+        for (; copy->next->next; copy = copy->next)
+            if (copy->next->fd == p->fd) {
+                temp = copy->next;
+                copy->next = copy->next->next;
+                break;
+            }
+    if (!temp) {
+        temp = copy->next;
+        copy->next = NULL;
+    }
+    close(p->fd);
+    free(temp);
+    return EXIT_SUCCESS;
+}

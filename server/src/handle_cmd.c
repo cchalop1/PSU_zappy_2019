@@ -109,9 +109,8 @@ int handle_client_cmd(server_t* server, player_t* player)
 
     len = read(player->fd, buffer, BUFFER_SIZE);
     buffer[len] = 0;
-    if (len <= 0) {
-        // TODO: remove client
-        close(player->fd);
+    if (len <= 1) {
+        remove_player(server, player);
         return EXIT_SUCCESS;
     }
     if (player->type == PLAYER) {
@@ -120,7 +119,6 @@ int handle_client_cmd(server_t* server, player_t* player)
     } else if (player->type == GRAPHIC) {
         cmd = find_command_graphic(buffer, len);
         cmd.exec(server, player, buffer);
-
     } else
         return login_client(buffer, player, server);
     return EXIT_SUCCESS;

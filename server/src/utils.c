@@ -36,3 +36,14 @@ int check_max_client(server_t* s, char* team_name)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
+
+void print_list(server_t *s)
+{
+    player_t *copy = s->players;
+
+    if (!copy)
+        printf("NULL list\n");
+    else
+        for (; copy; copy = copy->next)
+            printf("Player fd: %d\n", copy->fd);
+}

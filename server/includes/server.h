@@ -114,6 +114,7 @@ int start_server(server_t* server);
 
 // client
 int new_client(server_t* server);
+int remove_player(server_t *, player_t *);
 player_t* find_player_by_fd(server_t* server, int fd_find);
 player_t* find_player_graphic(server_t* server);
 int check_max_client(server_t* s, char* team_name);
@@ -126,6 +127,7 @@ void print_error(const char* messages);
 void send_reply(int fd, const char* messages);
 char* int_to_string(int nb);
 char* content_for_one_tile(server_t* server, int x, int y);
+void print_list(server_t *);
 
 // cmd graph
 int handle_client_cmd(server_t* server, player_t* player);
