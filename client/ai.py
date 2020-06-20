@@ -15,7 +15,6 @@ class ai(ai_actions):
 
     def loop(self):
         while 1:
-            print(self.reply)
             self.select_action()
 
     def select_action(self):
@@ -38,6 +37,8 @@ class ai(ai_actions):
     def get_return(self):
         ret = self.sock.recv(5000).decode()
         print(ret)
+        if ret == "dead\n":
+            self.is_dead()
         return ret
 
     def is_dead(self):
@@ -46,7 +47,7 @@ class ai(ai_actions):
 
     def get_connect_nbr(self):
         self.Connect_nbr()
-        return self.get_return()
+        return int(self.get_return())
 
     def get_inventory(self):
         self.Inventory()
@@ -74,40 +75,12 @@ class ai(ai_actions):
             self.vision.append(a)
 
     def can_lvl_up(self):
-        if (self.inventory["linemate"] < recipe[self.level]["linemate"] or
-        self.inventory["deraumere"] < recipe[self.level]["deraumere"] or
-        self.inventory["sibur"] < recipe[self.level]["sibur"] or
-        self.inventory["mendiane"] < recipe[self.level]["mendiane"] or
-        self.inventory["phiras"] < recipe[self.level]["phiras"] or
-        self.inventory["thystame"] < recipe[self.level]["thystame"]):
-            return False
-        return True
-
-    ### can replace
-    def can_lvl_up2(self):
         for i in stones:
             if self.inventory[i] < recipe[self.level][i]:
                 return False
         return True
 
     def needed(self):
-        if self.inventory["thystame"] < recipe[self.level]["thystame"]:
-            return "thystame"
-        elif self.inventory["phiras"] < recipe[self.level]["phiras"]:
-            return "phiras"
-        elif self.inventory["mendiane"] < recipe[self.level]["mendiane"]:
-            return "mendiane"
-        elif self.inventory["sibur"] < recipe[self.level]["sibur"]:
-            return "sibur"
-        elif self.inventory["deraumere"] < recipe[self.level]["deraumere"]:
-            return "deraumere"
-        elif self.inventory["linemate"] < recipe[self.level]["linemate"]:
-            return "linemate"
-        else:
-            return ""
-
-    ### can replace
-    def needed2(self):
         for i in stones:
             if self.inventory[i] < recipe[self.level][i]:
                 return i
@@ -140,16 +113,20 @@ class ai(ai_actions):
     ### can do better ?
     def _find_that(self, obj):
         i = 0
+        print("seach path to :", obj)
         while (i < len(self.vision)):
             if obj in self.vision[i]:
+                print("path find")
                 return self.get_path(i)
             i += 1
+        print("no path find")
         return path(-1,-1,-1)
 
     def find_that(self, obj):
         p = path(0,0,0)
         self.get_look()
         p = self._find_that(obj)
+        print("p =", p)
         return p
 
     def get_object(self, obj):

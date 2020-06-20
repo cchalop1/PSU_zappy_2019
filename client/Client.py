@@ -42,3 +42,6 @@ class Client:
             except Exception as e:
                 print("ERROR: conect to server")
                 exit(EXIT_ERROR)
+        else:
+            print("Error parameter")
+            exit(EXIT_ERROR)
