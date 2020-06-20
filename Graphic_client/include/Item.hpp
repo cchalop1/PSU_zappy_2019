@@ -27,7 +27,7 @@ class Item {
         int _x;
         int _y;
         bool can_draw;
-        sf::Texture _Texture;
+        sf::Texture &_Texture;
         sf::Sprite _Sprite;
 };
 

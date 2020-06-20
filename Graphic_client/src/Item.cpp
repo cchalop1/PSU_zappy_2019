@@ -7,9 +7,9 @@
 
 #include "../include/Item.hpp"
 
-Item::Item(sf::Texture &Texture)
+Item::Item(sf::Texture &Texture) :  _Texture(Texture)
 {
-    _Sprite.setTexture(Texture);
+    _Sprite.setTexture(_Texture);
     can_draw = true;
 }
 

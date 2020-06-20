@@ -61,7 +61,6 @@ void Map::set_item(int item, int nb)
     {
     case FOOD:
         _food.reserve(nb);
-        std::cout << nb << std::endl;
         for (int i = 0; i != nb; i++) {
             Item food(_texture_item[FOOD]);
             food.set_position_item(_x, _y, _index_item);
@@ -130,7 +129,6 @@ void Map::set_item(int item, int nb)
 
 void Map::init()
 {
-    std::cout << _x << " " << _y << std::endl;
     _Sprite.setPosition(_x, _y);
 }
 

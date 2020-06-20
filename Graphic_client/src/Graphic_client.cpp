@@ -13,6 +13,10 @@ Graphic_client::Graphic_client()
     _windowsize_y = sf::VideoMode::getDesktopMode().height;
     _window.create(sf::VideoMode(_windowsize_x, _windowsize_y), "Zappy Graphic");
     _texture_item.reserve(7);
+    for (int i = 0; i != THYSTAME + 1; i++) {
+        sf::Texture new_texture;
+        _texture_item.push_back(new_texture);
+    }
     if (!_texture_item[FOOD].loadFromFile("assets/food.png"))
         exit(84);
     if (!_texture_item[LINEMATE].loadFromFile("assets/linemate.png"))
@@ -79,7 +83,7 @@ void Graphic_client::create_tile(std::string command)
     found = command.find(" ");
     if (found != std::string::npos)
         command = command.substr(found, command.size());
-    while (statut != 9) {
+    while (statut != 10) {
         found = command.find(" ");
         if (found != std::string::npos) {
             value = command.substr(0, found);
@@ -89,7 +93,6 @@ void Graphic_client::create_tile(std::string command)
         }
         statut++;
     }
-    //std::cout << command << std::endl;
     _map[_map.size()-1]->init();
 }
 
