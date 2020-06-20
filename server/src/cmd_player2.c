@@ -98,8 +98,12 @@ int take(server_t* server, player_t* player, char* cmd)
             if (stone > 0) {
                 server->map.tiles[player->pos_y][player->pos_x].stones[i]--;
                 player->inventory[i]++;
+                send_reply(player->fd, "ok\n");
+                break;
+            } else {
+                send_reply(player->fd, "ko\n");
             }
         }
     }
-    send_reply(player->fd, "ok\n");
+    return EXIT_SUCCESS;
 }

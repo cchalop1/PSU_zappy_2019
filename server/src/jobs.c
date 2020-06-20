@@ -38,8 +38,8 @@ static void manage_life_player(server_t* server)
         if (copy_player->life != 0
             && (((float)clock() / CLOCKS_PER_SEC) * 1000.0)
                 > copy_player->life) {
-            send_reply(copy_player->fd, "dead\n");
-            close(copy_player->fd);
+            // send_reply(copy_player->fd, "dead\n");
+            // close(copy_player->fd);
         }
     }
 }
