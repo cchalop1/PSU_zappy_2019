@@ -92,6 +92,17 @@ typedef struct command_s {
     int settime;
 } command_t;
 
+typedef struct hierarchy_s {
+    int lvl;
+    int nb_player;
+    int linemate;
+    int deraumere;
+    int sibur;
+    int mendiane;
+    int phiras;
+    int thystame;
+} hierarchy_t;
+
 static const char* objects[6]
     = { "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame" };
 

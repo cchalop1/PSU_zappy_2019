@@ -50,7 +50,6 @@ static void fill_map(server_t* server)
 {
     fill_map_fruits(server);
     fill_map_stones(server);
-    // print_map(server);
 }
 
 void generate_map(server_t* server)
