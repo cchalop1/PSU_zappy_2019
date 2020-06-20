@@ -22,7 +22,6 @@ static int player_eat_food(server_t* server, player_t* player)
 int take(server_t* server, player_t* player, char* cmd)
 {
     char** res = parse_string_delim(cmd, " \n");
-    int stone = 0;
 
     if (res[1] == NULL) {
         send_reply(player->fd, "ko\n");
@@ -32,8 +31,7 @@ int take(server_t* server, player_t* player, char* cmd)
         player_eat_food(server, player);
     for (int i = 0; i < 6; i++) {
         if (strcmp(res[1], objects[i]) == 0) {
-            stone = server->map.tiles[player->pos_y][player->pos_x].stones[i];
-            if (stone > 0) {
+            if (server->map.tiles[player->pos_y][player->pos_x].stones[i] > 0) {
                 server->map.tiles[player->pos_y][player->pos_x].stones[i]--;
                 player->inventory[i]++;
                 send_reply(player->fd, "ok\n");

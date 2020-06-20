@@ -47,7 +47,6 @@ int fork_cmd_player(server_t* server, player_t* player, char* cmd)
     player_t* new_egg = malloc(sizeof(struct player_s));
 
     new_egg->fd = -1;
-    new_egg->team = player->team;
     new_egg->level = 1;
     new_egg->life
         = (clock() * 1000 / CLOCKS_PER_SEC) + ((600 / server->freq) * 1000);

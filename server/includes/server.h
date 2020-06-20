@@ -44,7 +44,6 @@ enum orientation { N = 1, E = 2, S = 3, W = 4 };
 
 typedef struct player_s {
     int fd;
-    int team;
     int level;
     char* team_name;
     float life;
@@ -77,6 +76,7 @@ typedef struct server_s {
     int sockfd;
     int freq;
     char** team_names;
+    int count_teams;
     player_t* players;
     map_t map;
     struct pollfd fds[MAX_CLIENTS];

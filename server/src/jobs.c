@@ -38,17 +38,40 @@ static void manage_life_player(server_t* server)
         if (copy_player->life != 0
             && (((float)clock() / CLOCKS_PER_SEC) * 1000.0)
                 > copy_player->life) {
-            // send_reply(copy_player->fd, "dead\n");
-            // close(copy_player->fd);
+            send_reply(copy_player->fd, "dead\n");
+            close(copy_player->fd);
         }
     }
 }
+
+// static int check_win(server_t* server)
+// {
+//     player_t* copy_player = server->players;
+//     int temp[server->count_teams] = { 0 };
+
+//     for (int i = 0; server->team_names[i] != NULL; i++) {
+//         copy_player = server->players;
+//         for (; copy_player; copy_player = copy_player->next) {
+//             if (strcmp(server->team_names[i], copy_player->team_name) == 0
+//                 && copy_player->level > 7) {
+//                 temp[i]++;
+//             }
+//         }
+//     }
+//     for (int i = 0; i < server->count_teams; i++) {
+//         if (temp[i] >= server->clients_nb) {
+//             printf("%d\n", i);
+//             send_reply()
+//         }
+//     }
+// }
 
 int manage_jobs(server_t* server)
 {
     jobs_t* current_jobs = server->jobs;
 
     manage_life_player(server);
+    // check_win(server);
     if (current_jobs == NULL)
         return EXIT_FAILURE;
     if (((float)clock() / CLOCKS_PER_SEC) * 1000.0 > current_jobs->end) {

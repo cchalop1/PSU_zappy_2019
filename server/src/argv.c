@@ -48,6 +48,7 @@ static int fill_server_struct(server_t* server, int opt, const char** argv)
                 = realloc(server->team_names, sizeof(char*) * (count + 2));
             server->team_names[count] = strdup(argv[count + (optind - 1)]);
             server->team_names[count + 1] = NULL;
+            server->count_teams++;
         }
         break;
     default:
@@ -66,6 +67,7 @@ server_t parse_server_input(int argc, const char** argv)
     server.players = NULL;
     server.freq = 100;
     server.jobs = NULL;
+    server.count_teams = 0;
     while ((opt = getopt(argc, (char** const)argv, "p:x:y:n:c:f:")) != -1) {
         fill_server_struct(&server, opt, argv);
     }
