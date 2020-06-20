@@ -89,6 +89,7 @@ int remove_player(server_t *s, player_t *p)
         copy->next = NULL;
     }
     close(p->fd);
+    remove_fd_list(s, p->fd);
     free(temp);
     return EXIT_SUCCESS;
 }

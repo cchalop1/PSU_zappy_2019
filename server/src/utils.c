@@ -37,13 +37,10 @@ int check_max_client(server_t* s, char* team_name)
     return EXIT_SUCCESS;
 }
 
-void print_list(server_t *s)
+void remove_fd_list(server_t *s, int elem)
 {
-    player_t *copy = s->players;
-
-    if (!copy)
-        printf("NULL list\n");
-    else
-        for (; copy; copy = copy->next)
-            printf("Player fd: %d\n", copy->fd);
+    for (int x = 1; x < s->nb_fd; x++) {
+        if (s->fds[x].fd == elem)
+            s->fds[x].fd = -1;
+    }
 }
