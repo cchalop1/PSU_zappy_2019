@@ -12,7 +12,7 @@ class ai_stats:
             "phiras" : 0,
             "thystame" : 0
         }
-        self.vision = []
+        self.vision = ""
         self.can_lvlup = False
         self.want_lvlup = 0
         self.reply = ""

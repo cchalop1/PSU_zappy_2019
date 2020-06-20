@@ -97,7 +97,7 @@ class ai_actions(ai_stats, Client):
     def Take(self, obj):
         self.time_unit -= act_dur["Take"]
         self.sock.send(("Take " + obj +"\n").encode())
-        print("Take")
+        print("Take", obj)
         self.reply = self.get_return()
         print(self.reply)
 

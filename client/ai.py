@@ -44,7 +44,6 @@ class ai(ai_actions):
         ret.replace(']', '')
         ret.replace(',', '')
         ret.split(' ')
-
         self.inventory["linemate"] = int(ret[1])
         self.inventory["deraumere"] = int(ret[3])
         self.inventory["sibur"] = int(ret[5])
@@ -53,17 +52,13 @@ class ai(ai_actions):
         self.inventory["thystame"] = int(ret[11])
 
     def get_look(self):
-        self.vision.clear()
+        self.vision = ""
         self.Look()
         ret = self.get_return()
-        ret.replace(']', '')
-        ret.replace('[', '')
         ret.split(', ')
-        ret.split(' ')
         print("ret =", ret)
         for i in ret:
-            a = i.split(' ')
-            self.vision.append(a)
+            self.vision += i
 
     def can_lvl_up(self):
         for i in stones:
@@ -103,14 +98,15 @@ class ai(ai_actions):
 
     ### can do better ?
     def _find_that(self, obj):
-        i = 0
+        self.vision.split(',')
+        print(self.vision.__class__)
         print("seach path to :", obj)
-        while (i < len(self.vision)):
-            print("vision = ",self.vision[i])
-            if obj in self.vision[i]:
-                print("path find")
-                return self.get_path(i)
-            i += 1
+        print("visio = ", self.vision)
+        print("visio = ", self.vision[0], "\n\n")
+        print(self.vision)
+        if obj in self.vision:
+            print("path find")
+            return self.get_path(1)
         print("no path find")
         return path(-1,-1,-1)
 
