@@ -62,14 +62,14 @@ int incantation(server_t* server, player_t* player, char* cmd)
             nb_player_tile++;
     }
     if (nb_player_tile == HIERARCHY[player->level][1]
-        && player->inventory[LINEMATE] == HIERARCHY[player->level][LINEMATE + 2]
+        && player->inventory[LINEMATE] >= HIERARCHY[player->level][LINEMATE + 1]
         && player->inventory[DERAUMERE]
-            == HIERARCHY[player->level][DERAUMERE + 2]
-        && player->inventory[SIBUR] == HIERARCHY[player->level][SIBUR + 2]
-        && player->inventory[MENDIANE] == HIERARCHY[player->level][MENDIANE + 2]
-        && player->inventory[PHIRAS] == HIERARCHY[player->level][PHIRAS + 2]
+            >= HIERARCHY[player->level][DERAUMERE + 1]
+        && player->inventory[SIBUR] >= HIERARCHY[player->level][SIBUR + 1]
+        && player->inventory[MENDIANE] >= HIERARCHY[player->level][MENDIANE + 1]
+        && player->inventory[PHIRAS] >= HIERARCHY[player->level][PHIRAS + 1]
         && player->inventory[THYSTAME]
-            == HIERARCHY[player->level][THYSTAME + 2]) {
+            >= HIERARCHY[player->level][THYSTAME + 1]) {
         player->level++;
         send_reply(player->fd, "ok\n");
         send_incarnation_to_server(server, player);
