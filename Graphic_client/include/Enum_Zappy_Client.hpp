@@ -10,12 +10,12 @@
 
 enum ITEM {
     FOOD = 0,
-    LINEMATE,
-    DERAUMERE,
-    SIBUR,
-    MENDIANE,
-    PHIRAS,
-    THYSTAME
+    LINEMATE = 1,
+    DERAUMERE = 2,
+    SIBUR = 3,
+    MENDIANE = 4,
+    PHIRAS = 5,
+    THYSTAME = 6
 };
 
 enum ZAPPY {

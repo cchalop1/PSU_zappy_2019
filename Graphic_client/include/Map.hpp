@@ -40,6 +40,7 @@ class Map {
         std::vector<Item> _mendiane;
         std::vector<Item> _phiras;
         std::vector<Item> _thystame;
+        int _index_item;
 };
 
 #endif /* !MAP_HPP_ */

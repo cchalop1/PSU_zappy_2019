@@ -14,6 +14,7 @@ Map::Map(std::vector<sf::Texture> &texture_item) : _texture_item(texture_item)
     _Sprite.setTexture(_Texture);
     _x = 450;
     _y = 20;
+    _index_item = 0;
 }
 
 void Map::init_x(int x)
@@ -63,55 +64,62 @@ void Map::set_item(int item, int nb)
         std::cout << nb << std::endl;
         for (int i = 0; i != nb; i++) {
             Item food(_texture_item[FOOD]);
-            food.set_position_item(_x, _y, 0);
+            food.set_position_item(_x, _y, _index_item);
             _food.push_back(food);
+            _index_item++;
         }
         break;
     case LINEMATE:
         _linemate.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item linemate(_texture_item[LINEMATE]);
-            linemate.set_position_item(_x, _y, 0);
+            linemate.set_position_item(_x, _y, _index_item);
             _linemate.push_back(linemate);
+            _index_item++;
         }
         break;
     case DERAUMERE:
         _deraumere.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item deraumere(_texture_item[DERAUMERE]);
-            deraumere.set_position_item(_x, _y, 0);
+            deraumere.set_position_item(_x, _y, _index_item);
             _deraumere.push_back(deraumere);
+            _index_item++;
         }
     case SIBUR:
         _sibur.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item sibur(_texture_item[SIBUR]);
-            sibur.set_position_item(_x, _y, 0);
+            sibur.set_position_item(_x, _y, _index_item);
             _sibur.push_back(sibur);
+            _index_item++;
         }
         break;
     case MENDIANE:
         _mendiane.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item mendiane(_texture_item[MENDIANE]);
-            mendiane.set_position_item(_x, _y, 0);
+            mendiane.set_position_item(_x, _y, _index_item);
             _mendiane.push_back(mendiane);
+            _index_item++;
         }
         break;
     case PHIRAS:
         _phiras.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item phiras(_texture_item[PHIRAS]);
-            phiras.set_position_item(_x, _y, 0);
+            phiras.set_position_item(_x, _y, _index_item);
             _phiras.push_back(phiras);
+            _index_item++;
         }
         break;
     case THYSTAME:
         _thystame.reserve(nb);
         for (int i = 0; i != nb; i++) {
             Item thystame(_texture_item[THYSTAME]);
-            thystame.set_position_item(_x, _y, 0);
+            thystame.set_position_item(_x, _y, _index_item);
             _thystame.push_back(thystame);
+            _index_item++;
         }
         break;
     default:

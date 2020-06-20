@@ -28,9 +28,44 @@ void Item::resize_item(float nb)
 
 void Item::set_position_item(int x, int y, int nb)
 {
-    _x = x;
-    _y = y;
-    _Sprite.setPosition(x, y);
+    switch (nb)
+    {
+    case 0:
+        _x = x;
+        _y = y;
+        break;
+    case 1:
+        _x = x + 20;
+        _y = y;
+        break;
+    case 2:
+        _x = x + 40;
+        _y = y;
+        break;
+    case 3:
+        _x = x + 60;
+        _y = y;
+        break;
+    case 4:
+        _x = x;
+        _y = y + 30;
+        break;
+    case 5:
+        _x = x + 20;
+        _y = y + 30;
+        break;
+    case 6:
+        _x = x + 40;
+        _y = y + 30;
+        break;
+    case 7:
+        _x = x + 60;
+        _y = y + 30;
+    default:
+        _x = x;
+        _y = y;
+    }
+    _Sprite.setPosition(_x, _y);
 }
 
 void Item::display(sf::RenderWindow *_window)
