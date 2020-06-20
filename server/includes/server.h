@@ -38,7 +38,7 @@
 
 enum stone_e { LINEMATE, DERAUMERE, SIBUR, MENDIANE, PHIRAS, THYSTAME };
 
-enum PLAYER_TYPE { NONE, PLAYER, GRAPHIC };
+enum PLAYER_TYPE { NONE, PLAYER, GRAPHIC, EGG };
 
 enum orientation { N = 1, E = 2, S = 3, W = 4 };
 
@@ -53,7 +53,6 @@ typedef struct player_s {
     int inventory[6];
     enum PLAYER_TYPE type;
     struct player_s* next;
-    bool is_egg;
 } player_t;
 
 typedef struct tile_s {
