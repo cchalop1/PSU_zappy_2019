@@ -4,4 +4,4 @@ from first_ai import first_ai
 ai_list = [Inosuke_ai, first_ai]
 
 def main():
-    ai_list[1]()
+    ai_list[0]()
