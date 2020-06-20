@@ -31,7 +31,7 @@ int set(server_t* server, player_t* player, char* cmd)
     send_reply(player->fd, "ok\n");
 }
 
-static void send_incarnation_to_server(server_t* server, player_t *player)
+static void send_incarnation_to_server(server_t* server, player_t* player)
 {
     player_t* graphic_player = find_player_graphic(server);
     char reply[BUFFER_SIZE];
@@ -58,7 +58,8 @@ int incantation(server_t* server, player_t* player, char* cmd)
 
     for (; player_copy; player_copy = player_copy->next) {
         if (player->pos_x == player_copy->pos_x
-            && player->pos_y == player_copy->pos_y)
+            && player->pos_y == player_copy->pos_y
+            && strcmp(player_copy->team_name, player->team_name) == 0)
             nb_player_tile++;
     }
     if (nb_player_tile == HIERARCHY[player->level][1]

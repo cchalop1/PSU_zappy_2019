@@ -11,8 +11,6 @@
 static int init_server_data(server_t *server)
 {
     generate_map(server);
-    // server->clock_start = clock();
-    // printf("start = %ld\n", server->clock_start);
     signal(SIGINT, exit);
     return EXIT_SUCCESS;
 }

@@ -12,7 +12,6 @@ static player_t* fill_new_player(server_t* server, int fd)
     player_t* new_client = malloc(sizeof(struct player_s));
 
     new_client->fd = fd;
-    new_client->team = 0;
     new_client->level = 1;
     new_client->life = 0;
     new_client->team_name = NULL;
