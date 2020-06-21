@@ -12,6 +12,7 @@ static int player_eat_food(server_t* server, player_t* player)
     if (server->map.tiles[player->pos_y][player->pos_x].fruit) {
         player->life += (126.0 / server->freq) * 1000.0;
         send_reply(player->fd, "ok\n");
+        server->map.tiles[player->pos_y][player->pos_x].fruit = false;
     } else {
         send_reply(player->fd, "ko\n");
         return EXIT_FAILURE;

@@ -1,7 +1,7 @@
 from ai_actions import ai_actions, act_dur, recipe, stones
 from ai_stats import ai_stats
 from path import path
-from math import sqrt
+from math import sqrt, floor
 import random as rd
 import time
 
@@ -11,6 +11,7 @@ class Tile:
         self.x = None
         self.y = None
         self.inventory = {
+            "food": 0,
             "linemate": 0,
             "deraumere": 0,
             "sibur": 0,
@@ -18,7 +19,6 @@ class Tile:
             "phiras": 0,
             "thystame": 0
         }
-        self.fruit = 0
         self.contain_player = None
 
 def toto(s):
@@ -30,8 +30,8 @@ class ai(ai_actions):
         ai_actions.__init__(self)
         time.sleep(0.1)
         self.get_return()
-        self.get_look()
-        # self.loop()
+        self.get_object("food")
+        self.loop()
 
     def __del__(self):
         pass
@@ -95,21 +95,16 @@ class ai(ai_actions):
             tile.inventory["mendiane"] = int(line[8])
             tile.inventory["phiras"] = int(line[9])
             tile.inventory["thystame"] = int(line[10])
-            tile.fruit += int(line[4])
+            tile.inventory["food"] = int(line[4])
             tile.contain_player = True if int(line[0]) == 1 else False
             data.append(tile)
-        for elem in range(0, len(data)):
-            print(data[elem].x)
-            print(data[elem].y)
-            print(data[elem].inventory)
-            print(data[elem].contain_player)
-        return data;
+        return data
 
     def get_look(self):
-        self.vision = ""
+        self.vision.clear()
         self.Look()
         ret = self.get_return()
-        self.parse_look_response(ret)
+        self.vision = self.parse_look_response(ret)
 
     def can_lvl_up(self):
         for i in stones:
@@ -124,55 +119,53 @@ class ai(ai_actions):
         return ""
 
     def go_to(self, path):
+        print("path f =", path.forward, "l = ", path.left, "r = ", path.right)
         for i in range(0, path.forward):
             self.Forward()
         if path.left > 0:
             self.Left()
             for i in range(0, path.left):
                 self.Forward()
-        elif path.right() > 0:
+        elif path.right > 0:
             self.Right()
-            for i in range(0, path.left):
+            for i in range(0, path.right):
                 self.Forward()
 
-    def go_to_n(self, n):
-        p = path(0,0,0)
-        return p
-
     def get_path(self, n):
-        f = round(sqrt(n))
+        print("calcul path")
+        print("n =",n)
+        f = floor(sqrt(n))
+        print("f =",f)
         dir = n  - (f**2 + f)
-        l = 0 if dir >= 0 else dir * -1
+        print("dir =", dir)
+        l = 0 if dir >= 0 else dir.__abs__()
         r = 0 if dir <= 0 else dir
+        print("l",l,"r",r)
         p = path(f,l,r)
         return p
 
     # can do better ?
     def _find_that(self, obj):
-        self.vision.split(',')
-        print(self.vision.__class__)
-        print("seach path to :", obj)
-        print("visio = ", self.vision)
-        print("visio = ", self.vision[0], "\n\n")
-        print(self.vision)
-        if obj in self.vision:
-            print("path find")
-            return self.get_path(1)
-        print("no path find")
+        i = 0
+        while i < len(obj):
+            if self.vision[i].inventory[obj] > 0:
+                return self.get_path(i)
+            i += 1
         return path(-1,-1,-1)
 
     def find_that(self, obj):
         p = path(0,0,0)
         self.get_look()
         p = self._find_that(obj)
-        print("p =", p)
         return p
 
     def get_object(self, obj):
         print("obj =", obj)
         p = self.find_that(obj)
         if p.forward == -1:
+            print("no path")
             self.walk()
         else:
+            print("path find")
             self.go_to(p)
             self.Take(obj)

@@ -55,6 +55,7 @@ class ai_actions(ai_stats, Client):
         return ret
 
     def do_action(self, action):
+        print(action)
         self.time_unit -= act_dur[action]
         self.sock.send((action + "\n").encode())
         self.reply = self.get_return()
