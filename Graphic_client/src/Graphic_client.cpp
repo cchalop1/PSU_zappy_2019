@@ -177,7 +177,7 @@ void Graphic_client::run(std::string command, Client client)
         rezise_tiles(0.4);
     while (_window.isOpen())
     {
-        if (poll(fds, 2, 0) == -1)
+        if (poll(fds, 2, 200) == -1)
             exit(84);
         if (fds[0].revents && POLLIN) {
             manage_command(client);
@@ -185,8 +185,8 @@ void Graphic_client::run(std::string command, Client client)
             // fait ce que tu veux
         }
         player_move(client);
-        client.send_command("mct");
-        manage_command(client);
+        //client.send_command("mct");
+        //manage_command(client);
         while (_window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
