@@ -10,6 +10,9 @@ def test_map_size():
     try:
         s.connect((HOST, PORT))
         assert s.recv(5000).decode() == 'WELCOME\n'
+        s.send('GRAPHIC\n'.encode())
+        time.sleep(.2)
+        s.recv(5000).decode()
         time.sleep(.2)
         s.send('msz\n'.encode())
         assert s.recv(5000).decode() == 'msz 10 10\n'

@@ -1,4 +1,7 @@
 from ai_stats import ai_stats
+from Client import Client
+import socket
+import select
 
 act_dur = {
     "Forward" : 7,
@@ -26,66 +29,92 @@ recipe = [ {},
 
 stones = ["linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"]
 
-class ai_actions(ai_stats):
+class ai_actions(ai_stats, Client):
     def __init__(self):
+        Client.__init__(self)
+        ai_stats.__init__(self)
         pass
+
+    def is_dead(self):
+        print("I'm starving ...")
+        self.__del__()
+        exit(0)
+
+    def get_return(self):
+        arg = [self.sock]
+        clients_a_lire = []
+        ret = self.reply
+        try:
+            clients_a_lire, wlist, xlist = select.select(arg, [], [], 0.05)
+        except select.error:
+            pass
+        for i in clients_a_lire:
+            ret = i.recv(1024).decode()
+            if ret == "dead\n":
+                self.is_dead()
+        print(ret)
+        return ret
+
+    def do_action(self, action):
+        self.time_unit -= act_dur[action]
+        self.sock.send((action + "\n").encode())
+        print(action)
+        self.reply = self.get_return()
 
     #move up one tile
     def Forward(self):
-        self.time_unit -= act_dur["Forward"]
-        print("Forward")
+        self.do_action("Forward")
 
     #turn 90o right
     def Right(self):
-        self.time_unit -= act_dur["Right"]
-        print("Right")
+        self.do_action("Right")
 
     #turn 90o left
     def Left(self):
-        self.time_unit -= act_dur["Left"]
-        print("Left")
+        self.do_action("Left")
 
     #look around
     def Look(self):
-        self.time_unit -= act_dur["Look"]
-        print("Look")
+        self.do_action("Look")
 
     #inventory
     def Inventory(self):
-        self.time_unit -= act_dur["Inventory"]
-        print("Inventory")
+        self.do_action("Inventory")
 
     #number of team unused slots
     def Connect_nbr(self):
-        self.time_unit -= act_dur["Connect_nbr"]
-        print("Connect_nbr")
+        self.do_action("Connect_nbr")
 
     #fork a player
     def Fork(self):
-        self.time_unit -= act_dur["Fork"]
-        print("Fork")
+        self.do_action("Fork")
 
     #eject players from this tile
     def Eject(self):
-        self.time_unit -= act_dur["Eject"]
-        print("Eject")
+        self.do_action("Eject")
 
     #take object
     def Take(self, obj):
-        self.time_unit -= act_dur["Look"]
-        print("Look", obj)
+        self.time_unit -= act_dur["Take"]
+        self.sock.send(("Take " + obj +"\n").encode())
+        print("Take", obj)
+        self.reply = self.get_return()
+        print(self.reply)
 
     #set object down
     def Set(self, obj):
         self.time_unit -= act_dur["Set"]
-        print("Set", obj)
+        self.sock.send(("Set " + obj + "\n").encode())
+        self.reply = self.get_return()
+        print(self.reply)
 
     #broadcast text
     def Broadcast(self, text):
         self.time_unit -= act_dur["Broadcast"]
-        print("Broadcast", text)
+        self.sock.send(("Broadcast " + text + "\n").encode())
+        self.reply = self.get_return()
+        print(self.reply)
 
     #start incantation
     def Incantation(self):
-        self.time_unit -= act_dur["Incantation"]
-        print("Incantation")
+        self.do_action("Incantation")

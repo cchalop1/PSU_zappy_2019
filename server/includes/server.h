@@ -38,23 +38,21 @@
 
 enum stone_e { LINEMATE, DERAUMERE, SIBUR, MENDIANE, PHIRAS, THYSTAME };
 
-enum PLAYER_TYPE { NONE, PLAYER, GRAPHIC };
+enum PLAYER_TYPE { NONE, PLAYER, GRAPHIC, EGG };
 
 enum orientation { N = 1, E = 2, S = 3, W = 4 };
 
 typedef struct player_s {
     int fd;
-    int team;
     int level;
     char* team_name;
-    int life;
+    float life;
     int pos_x;
     int pos_y;
     enum orientation orientation;
     int inventory[6];
     enum PLAYER_TYPE type;
     struct player_s* next;
-    bool is_egg;
 } player_t;
 
 typedef struct tile_s {
@@ -77,6 +75,7 @@ typedef struct server_s {
     int sockfd;
     int freq;
     char** team_names;
+    int count_teams;
     player_t* players;
     map_t map;
     struct pollfd fds[MAX_CLIENTS];
@@ -92,11 +91,25 @@ typedef struct command_s {
     int settime;
 } command_t;
 
+typedef struct hierarchy_s {
+    int lvl;
+    int nb_player;
+    int linemate;
+    int deraumere;
+    int sibur;
+    int mendiane;
+    int phiras;
+    int thystame;
+} hierarchy_t;
+
+static const char* objects[6]
+    = { "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame" };
+
 typedef struct jobs_s {
     exec_cmd exec;
     char* buffer;
     player_t* player;
-    unsigned long end;
+    float end;
     int time;
     struct jobs_s* next;
 } jobs_t;
@@ -111,6 +124,7 @@ int start_server(server_t* server);
 
 // client
 int new_client(server_t* server);
+int remove_player(server_t *, player_t *);
 player_t* find_player_by_fd(server_t* server, int fd_find);
 player_t* find_player_graphic(server_t* server);
 int check_max_client(server_t* s, char* team_name);
@@ -123,6 +137,7 @@ void print_error(const char* messages);
 void send_reply(int fd, const char* messages);
 char* int_to_string(int nb);
 char* content_for_one_tile(server_t* server, int x, int y);
+void remove_fd_list(server_t *, int);
 
 // cmd graph
 int handle_client_cmd(server_t* server, player_t* player);
@@ -151,6 +166,7 @@ int incantation(server_t* server, player_t* player, char* cmd);
 
 // other
 int vision(server_t*, player_t*);
+int find_broadcast_dir(player_t *, player_t *);
 
 // map
 void generate_map(server_t* server);

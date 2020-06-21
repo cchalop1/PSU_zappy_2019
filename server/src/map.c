@@ -7,19 +7,6 @@
 
 #include "server.h"
 
-// TODO: for debug remove for merge
-static void print_map(server_t* server)
-{
-    for (int y = 0; y < server->map.y_max; y++) {
-        for (int x = 0; x < server->map.x_max; x++) {
-            printf("%d,%d f=%d", x, y, server->map.tiles[y][x].fruit);
-            for (int i = 0; i < 6; i++)
-                printf(" %d", server->map.tiles[y][x].stones[i]);
-            printf("\n");
-        }
-    }
-}
-
 static void fill_map_fruits(server_t* server)
 {
     for (int y = 0; y < server->map.y_max; y++) {
@@ -50,7 +37,6 @@ static void fill_map(server_t* server)
 {
     fill_map_fruits(server);
     fill_map_stones(server);
-    // print_map(server);
 }
 
 void generate_map(server_t* server)
