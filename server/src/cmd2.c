@@ -50,11 +50,20 @@ int player_pos(server_t* server, player_t* player, char* cmd)
     printf("%d\n", atoi(res[1]));
     player_t* player_find = find_player_by_fd(server, atoi(res[1]));
 
-    reply[0] = 0;
     if (player_find == NULL) {
         send_reply(player->fd, "ko\n");
         return EXIT_FAILURE;
     }
-    player_info(server, player_find, player->fd);
+    reply[0] = 0;
+    strcat(reply, "ppo ");
+    strcat(reply, int_to_string(player_find->fd));
+    strcat(reply, " ");
+    strcat(reply, int_to_string(player_find->pos_x));
+    strcat(reply, " ");
+    strcat(reply, int_to_string(player_find->pos_y));
+    strcat(reply, " ");
+    strcat(reply, int_to_string(player_find->orientation));
+    strcat(reply, "\n");
+    send_reply(player->fd, reply);
     return EXIT_SUCCESS;
 }

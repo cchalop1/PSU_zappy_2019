@@ -7,7 +7,6 @@
 
 #include "server.h"
 
-// TODO: norme ?
 static int count_space(const char* raw_str)
 {
     char str[BUFFER_SIZE];
@@ -21,7 +20,6 @@ static int count_space(const char* raw_str)
     return nb_words;
 }
 
-// TODO: norme ?
 char** parse_string_delim(const char* raw_str, const char* delim_raw)
 {
     char str[BUFFER_SIZE];

@@ -29,7 +29,6 @@ int map_size(server_t* server, player_t* player, char* cmd)
     return EXIT_SUCCESS;
 }
 
-
 int content_of_a_tile(server_t* server, player_t* player, char* cmd)
 {
     char* reply = NULL;

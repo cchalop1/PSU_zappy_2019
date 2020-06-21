@@ -44,13 +44,46 @@ static void manage_life_player(server_t* server)
     }
 }
 
+static void disconnect_players(server_t *s, const char *winner)
+{
+    player_t *copy = s->players;
+    char res[MAX_BODY_LENGTH];
+    char *str = res;
+
+    sprintf(str, "%s won the game\n", winner);
+    for (; copy; copy = s->players) {
+        send_reply(copy->fd, res);
+        remove_player(s, copy);
+    }
+}
+
+static int check_win(server_t* server)
+{
+    player_t *copy = NULL;
+    int count = 0;
+
+    for (int x = 0; server->team_names[x]; x++)
+        for (copy = server->players, count = 0; copy; copy = copy->next) {
+            if (copy->team_name && copy->level >= 8 && \
+            !strcmp(copy->team_name, server->team_names[x]))
+                count++;
+            if (count == server->clients_nb) {
+                disconnect_players(server, server->team_names[x]);
+                return EXIT_SUCCESS;
+            }
+        }
+    return EXIT_FAILURE;
+}
+
 int manage_jobs(server_t* server)
 {
     jobs_t* current_jobs = server->jobs;
 
     manage_life_player(server);
-    if (current_jobs == NULL)
+    if (!check_win(server))
         return EXIT_FAILURE;
+    if (current_jobs == NULL)
+        return EXIT_SUCCESS;
     if (((float)clock() / CLOCKS_PER_SEC) * 1000.0 > current_jobs->end) {
         server->jobs->exec(server, current_jobs->player, current_jobs->buffer);
         server->jobs = server->jobs->next;

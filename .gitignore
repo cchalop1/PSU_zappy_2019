@@ -4,3 +4,4 @@ package-lock.json
 zappy_server2
 .pytest_cache
 __pycache__
+*.o

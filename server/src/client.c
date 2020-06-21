@@ -12,13 +12,11 @@ static player_t* fill_new_player(server_t* server, int fd)
     player_t* new_client = malloc(sizeof(struct player_s));
 
     new_client->fd = fd;
-    new_client->team = 0;
     new_client->level = 1;
     new_client->life = 0;
     new_client->team_name = NULL;
     new_client->next = NULL;
     new_client->type = NONE;
-    new_client->is_egg = false;
     new_client->orientation = (rand() % 4) + 1;
     new_client->pos_x = rand() % server->map.x_max;
     new_client->pos_y = rand() % server->map.y_max;
@@ -67,4 +65,29 @@ player_t* find_player_graphic(server_t* server)
         }
     }
     return NULL;
+}
+
+int remove_player(server_t *s, player_t *p)
+{
+    player_t *copy = s->players;
+    player_t *temp = NULL;
+
+    if (copy && copy->fd == p->fd) {
+        s->players = copy->next ? copy->next : NULL;
+        temp = copy;
+    } else
+        for (; copy->next->next; copy = copy->next)
+            if (copy->next->fd == p->fd) {
+                temp = copy->next;
+                copy->next = copy->next->next;
+                break;
+            }
+    if (!temp) {
+        temp = copy->next;
+        copy->next = NULL;
+    }
+    close(p->fd);
+    remove_fd_list(s, p->fd);
+    free(temp);
+    return EXIT_SUCCESS;
 }

@@ -36,3 +36,11 @@ int check_max_client(server_t* s, char* team_name)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
+
+void remove_fd_list(server_t *s, int elem)
+{
+    for (int x = 1; x < s->nb_fd; x++) {
+        if (s->fds[x].fd == elem)
+            s->fds[x].fd = -1;
+    }
+}

@@ -21,6 +21,10 @@ class Client:
         self.parse_argument()
         self.conect_to_server()
 
+    def __del__(self):
+        pass
+        #self.sock.close()
+
     def parse_argument(self):
         if len(sys.argv) == 2 and sys.argv[1] == "-help":
             print_help()
@@ -42,3 +46,6 @@ class Client:
             except Exception as e:
                 print("ERROR: conect to server")
                 exit(EXIT_ERROR)
+        else:
+            print("Error parameter")
+            exit(EXIT_ERROR)
