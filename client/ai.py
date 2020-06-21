@@ -3,12 +3,35 @@ from ai_stats import ai_stats
 from path import path
 from math import sqrt
 import random as rd
+import time
+
+
+class Tile:
+    def __init__(self):
+        self.x = None
+        self.y = None
+        self.inventory = {
+            "linemate": 0,
+            "deraumere": 0,
+            "sibur": 0,
+            "mendiane": 0,
+            "phiras": 0,
+            "thystame": 0
+        }
+        self.fruit = 0
+        self.contain_player = None
+
+def toto(s):
+    return s.strip()
+
 
 class ai(ai_actions):
     def __init__(self):
         ai_actions.__init__(self)
+        time.sleep(0.1)
         self.get_return()
-        self.loop()
+        self.get_look()
+        # self.loop()
 
     def __del__(self):
         pass
@@ -51,14 +74,42 @@ class ai(ai_actions):
         self.inventory["phiras"] = int(ret[9])
         self.inventory["thystame"] = int(ret[11])
 
+
+
+    def parse_look_response(self, str):
+        data = []
+        print(str)
+        str = str.replace(",", "")
+        str = str.split('[')[1]
+        str = str.split(']')[0]
+        str = str.split('\n')
+        str = list(map(toto, str))
+        for i in range(0, len(str) - 1):
+            line = str[i].split(' ')
+            tile = Tile()
+            tile.x = int(line[2])
+            tile.y = int(line[3])
+            tile.inventory["linemate"] = int(line[5])
+            tile.inventory["deraumere"] = int(line[6])
+            tile.inventory["sibur"] = int(line[7])
+            tile.inventory["mendiane"] = int(line[8])
+            tile.inventory["phiras"] = int(line[9])
+            tile.inventory["thystame"] = int(line[10])
+            tile.fruit += int(line[4])
+            tile.contain_player = True if int(line[0]) == 1 else False
+            data.append(tile)
+        for elem in range(0, len(data)):
+            print(data[elem].x)
+            print(data[elem].y)
+            print(data[elem].inventory)
+            print(data[elem].contain_player)
+        return data;
+
     def get_look(self):
         self.vision = ""
         self.Look()
         ret = self.get_return()
-        ret.split(', ')
-        print("ret =", ret)
-        for i in ret:
-            self.vision += i
+        self.parse_look_response(ret)
 
     def can_lvl_up(self):
         for i in stones:
@@ -96,7 +147,7 @@ class ai(ai_actions):
         p = path(f,l,r)
         return p
 
-    ### can do better ?
+    # can do better ?
     def _find_that(self, obj):
         self.vision.split(',')
         print(self.vision.__class__)

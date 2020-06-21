@@ -52,13 +52,11 @@ class ai_actions(ai_stats, Client):
             ret = i.recv(1024).decode()
             if ret == "dead\n":
                 self.is_dead()
-        print(ret)
         return ret
 
     def do_action(self, action):
         self.time_unit -= act_dur[action]
         self.sock.send((action + "\n").encode())
-        print(action)
         self.reply = self.get_return()
 
     #move up one tile
