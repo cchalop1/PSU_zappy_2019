@@ -1,5 +1,5 @@
-from ai_stats import ai_stats
-from Client import Client
+from client.ai_stats import ai_stats
+from client.Client import Client
 import socket
 import select
 
