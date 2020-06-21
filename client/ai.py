@@ -78,7 +78,6 @@ class ai(ai_actions):
 
     def parse_look_response(self, str):
         data = []
-        print(str)
         str = str.replace(",", "")
         str = str.split('[')[1]
         str = str.split(']')[0]
@@ -119,7 +118,6 @@ class ai(ai_actions):
         return ""
 
     def go_to(self, path):
-        print("path f =", path.forward, "l = ", path.left, "r = ", path.right)
         for i in range(0, path.forward):
             self.Forward()
         if path.left > 0:
@@ -132,19 +130,13 @@ class ai(ai_actions):
                 self.Forward()
 
     def get_path(self, n):
-        print("calcul path")
-        print("n =",n)
         f = floor(sqrt(n))
-        print("f =",f)
         dir = n  - (f**2 + f)
-        print("dir =", dir)
         l = 0 if dir >= 0 else dir.__abs__()
         r = 0 if dir <= 0 else dir
-        print("l",l,"r",r)
         p = path(f,l,r)
         return p
 
-    # can do better ?
     def _find_that(self, obj):
         i = 0
         while i < len(obj):
@@ -160,12 +152,9 @@ class ai(ai_actions):
         return p
 
     def get_object(self, obj):
-        print("obj =", obj)
         p = self.find_that(obj)
         if p.forward == -1:
-            print("no path")
             self.walk()
         else:
-            print("path find")
             self.go_to(p)
             self.Take(obj)

@@ -98,6 +98,10 @@ class ai_actions(ai_stats, Client):
         self.sock.send(("Take " + obj +"\n").encode())
         print("Take", obj)
         self.reply = self.get_return()
+        if obj == "food" and self.reply == "ok\n":
+            self.time_unit += 126
+        elif self.reply == "ok\n":
+            self.inventory[obj] += 1
         print(self.reply)
 
     #set object down

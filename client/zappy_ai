@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from Inosuke import Inosuke_ai
-from first_ai import first_ai
+from Zenitsu import Zenitsu
 
-ai_list = [Inosuke_ai, first_ai]
+ai_list = [Inosuke_ai, Zenitsu]
 
 ai = ai_list[1]()
