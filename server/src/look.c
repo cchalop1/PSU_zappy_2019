@@ -11,7 +11,7 @@ static tile_t *check_tile(server_t *s, int x, int y)
 {
     x = x < 0 ? s->map.x_max + x : x;
     y = y < 0 ? s->map.y_max + y : y;
-    return &s->map.tiles[y % s->map.y_max][x % s->map.x_max];
+    return &s->map.tiles[x % s->map.y_max][y % s->map.x_max];
 }
 
 static tile_t *get_tile(server_t *s, player_t *p, int x, int y)

@@ -52,13 +52,12 @@ class ai_actions(ai_stats, Client):
             ret = i.recv(1024).decode()
             if ret == "dead\n":
                 self.is_dead()
-        print(ret)
         return ret
 
     def do_action(self, action):
+        print(action)
         self.time_unit -= act_dur[action]
         self.sock.send((action + "\n").encode())
-        print(action)
         self.reply = self.get_return()
 
     #move up one tile
@@ -99,6 +98,10 @@ class ai_actions(ai_stats, Client):
         self.sock.send(("Take " + obj +"\n").encode())
         print("Take", obj)
         self.reply = self.get_return()
+        if obj == "food" and self.reply == "ok\n":
+            self.time_unit += 126
+        elif self.reply == "ok\n":
+            self.inventory[obj] += 1
         print(self.reply)
 
     #set object down
