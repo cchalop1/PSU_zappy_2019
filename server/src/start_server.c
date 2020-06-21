@@ -33,9 +33,8 @@ int manage_client(server_t* server)
 {
     player_t *player = NULL;
 
-    if (poll(server->fds, server->nb_fd, 0) == -1)
+    if (poll(server->fds, server->nb_fd, 0) == -1 || manage_jobs(server))
         return EXIT_FAILURE;
-    manage_jobs(server);
     if (server->fds[0].revents & POLLIN) {
         server->fds[server->nb_fd].fd = accept_client(server);
         server->fds[server->nb_fd].events = POLLIN;
@@ -44,14 +43,13 @@ int manage_client(server_t* server)
         server->nb_fd++;
         return EXIT_SUCCESS;
     }
-    for (int i = 1; i < server->nb_fd; i++) {
+    for (int i = 1; i < server->nb_fd; i++)
         if (server->fds[i].revents & POLLIN) {
             player = find_player_by_fd(server, server->fds[i].fd);
             if (player == NULL)
                 return EXIT_FAILURE;
             handle_client_cmd(server, player);
         }
-    }
     return EXIT_SUCCESS;
 }
 
