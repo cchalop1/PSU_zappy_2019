@@ -1,5 +1,5 @@
-from ai import ai
-from ai_actions import act_dur
+from client.ai import ai
+from client.ai_actions import act_dur
 
 class Inosuke_ai(ai):
     def __init__(self):

@@ -1,5 +1,5 @@
-from ai import ai
-from ai_actions import act_dur, recipe
+from client.ai import ai
+from client.ai_actions import act_dur, recipe
 
 class Zenitsu(ai):
     def __init__(self):
