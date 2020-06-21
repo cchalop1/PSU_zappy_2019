@@ -39,3 +39,8 @@ std::string Client::receive_answer()
     free(buff);
     return answer;
 }
+
+int Client::getSock()
+{
+    return sock;
+}

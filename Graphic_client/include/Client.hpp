@@ -31,6 +31,7 @@ class Client {
         ~Client();
         void send_command(std::string command);
         std::string receive_answer();
+        int getSock();
 
     protected:
     private:

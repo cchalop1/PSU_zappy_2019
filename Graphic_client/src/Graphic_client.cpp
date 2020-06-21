@@ -111,19 +111,46 @@ void Graphic_client::create_all_tiles(std::string all_command)
     }
 }
 
-void Graphic_client::check_command(std::string command)
-{
-
-}
-
 void Graphic_client::rezise_tiles(float nb)
 {
     for (int i = 0; i != _map.size(); i++)
         _map[i]->rezise_tile(nb);
 }
 
-void Graphic_client::run(std::string command)
+Player *Graphic_client::find_player(int nbr)
 {
+    for (int i = 0; i != _player.size(); i++)
+        if (_player[i]->getNbr() == nbr)
+            return _player[i];
+    return NULL;
+}
+
+void Graphic_client::manage_command(Client &client)
+{
+    std::size_t found;
+    std::string command = client.receive_answer();
+    std::cout << command << std::endl;
+    std::string _substr;
+    if (found = command.find("pnw") != std::string::npos) 
+        _player.push_back(new Player(command.substr(found+3, command.size())));
+    if (found = command.find("ppo") != std::string::npos) {
+        _substr = command.substr(found + 5);
+        command = _substr.substr(0, _substr.find(" ")-1);
+        find_player(atoi(command.c_str()))->update_data(_substr.substr(_substr.find(" ")));
+    }
+    if (found = command.find("bct") != std::string::npos) {
+        _map.clear();
+        create_all_tiles(command);
+    }
+}
+
+void Graphic_client::run(std::string command, Client client)
+{
+    struct pollfd fds[2];
+
+    fds[0].fd = client.getSock();
+    fds[0].events = POLLIN;
+
     if (_index_map > 100 && _index_map < 220)
         rezise_tiles(0.7);
     if (_index_map >= 225 && _index_map < 280)
@@ -132,10 +159,16 @@ void Graphic_client::run(std::string command)
         rezise_tiles(0.5);
     if (_index_map > 400)
         rezise_tiles(0.4);
-    std::cout << _index_map << std::endl;
     while (_window.isOpen())
     {
-        check_command(command);
+        if (poll(fds, 2, 0) == -1)
+            exit(84);
+        if (fds[0].revents && POLLIN) {
+            manage_command(client);
+        } else {
+            // fait ce que tu veux
+        }
+        //player_move(client);
         while (_window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
@@ -145,8 +178,21 @@ void Graphic_client::run(std::string command)
         _window.draw(_backgroundSprite);
         for (int i = 0; i != _map.size(); i++)
             _map[i]->draw(&_window);
+        for (int i = 0; i != _player.size(); i++)
+            _player[i]->draw(&_window);
         _window.display();
     }
+}
+
+void Graphic_client::player_move(Client client)
+{
+    std::string to_send("ppo ");
+
+    for (int i = 0; i != _player.size(); i++) {
+        client.send_command(to_send + std::to_string(_player[i]->getNbr()));
+        manage_command(client);
+    }
+
 }
 
 Graphic_client::~Graphic_client()

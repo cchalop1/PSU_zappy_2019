@@ -9,7 +9,8 @@ SRC	=	src/main.cpp \
 		src/Client.cpp	\
 		src/Graphic_client.cpp	\
 		src/Item.cpp	\
-		src/Map.cpp
+		src/Map.cpp \
+		src/Player.cpp
 
 OBJ		=	$(SRC:.cpp=.o) \
 
