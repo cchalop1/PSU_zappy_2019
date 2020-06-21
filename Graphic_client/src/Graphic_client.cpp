@@ -168,7 +168,7 @@ void Graphic_client::run(std::string command, Client client)
         } else {
             // fait ce que tu veux
         }
-        //player_move(client);
+        player_move(client);
         while (_window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
