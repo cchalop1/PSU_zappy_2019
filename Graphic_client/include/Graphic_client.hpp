@@ -28,6 +28,7 @@ class Graphic_client {
         void run(std::string command, Client client);
         void rezise_tiles(float nb);
         Player *find_player(int nbr);
+        std::vector<std::string> split_command(std::string commands, std::string delim);
         void player_move(Client client);
         ~Graphic_client();
     protected:

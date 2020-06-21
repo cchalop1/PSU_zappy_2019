@@ -125,20 +125,36 @@ Player *Graphic_client::find_player(int nbr)
     return NULL;
 }
 
+std::vector<std::string> Graphic_client::split_command(std::string commands, std::string delim)
+{
+    std::size_t found;
+    std::vector<std::string> rep;
+
+    while (found = commands.find(delim) != std::string::npos) {
+        std::cout << "Command :" << commands.substr(0, found) << std::endl;
+        rep.push_back(commands.substr(0, found));
+        commands = commands.substr(found + 1);
+    }
+    std::cout << "Hey" << commands.substr(0, found);
+    return rep;
+}
+
 void Graphic_client::manage_command(Client &client)
 {
     std::size_t found;
     std::string command = client.receive_answer();
     std::cout << command << std::endl;
+    //std::vector<std::string> all_commands = split_command(command, "\n");
     std::string _substr;
     if (found = command.find("pnw") != std::string::npos) 
         _player.push_back(new Player(command.substr(found+3, command.size())));
     if (found = command.find("ppo") != std::string::npos) {
-        _substr = command.substr(found + 5);
-        command = _substr.substr(0, _substr.find(" ")-1);
+        _substr = command.substr(found + 3);
+        command = _substr.substr(0, _substr.find(" "));
         find_player(atoi(command.c_str()))->update_data(_substr.substr(_substr.find(" ")));
     }
     if (found = command.find("bct") != std::string::npos) {
+        std::cout << command << std::endl;
         _map.clear();
         create_all_tiles(command);
     }
@@ -169,6 +185,8 @@ void Graphic_client::run(std::string command, Client client)
             // fait ce que tu veux
         }
         player_move(client);
+        client.send_command("mct");
+        manage_command(client);
         while (_window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)

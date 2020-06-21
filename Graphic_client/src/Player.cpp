@@ -62,12 +62,16 @@ void Player::setOrientation(int status)
     switch (status) {
         case 1:
             rect.top = 200;
+            break;
         case 2:
             rect.top = 100;
+            break;
         case 3:
             rect.top = 0;
+            break;
         case 4:
             rect.top = 300;
+            break;
     }
     spr.setTextureRect(rect);
 }
@@ -78,6 +82,7 @@ void Player::update_data(std::string data)
     int status = 0;
     std::string _substr;
 
+    std::cout << data << std::endl;
     if (data[0] != ' ')
         data.insert(0, " ");
     for (int status = 0; status != 3; status++)
