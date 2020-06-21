@@ -1,8 +1,8 @@
-ZAPPY DOCUMENTATION EN
+ZAPPY DOCUMENTATION
 
 1/ ABOUT
 
-  Zappy is a network game where clients play on a server as Trantorians and must rise throught the
+  Zappy is a network game where clients play on a server as Trantorians and must rise through the
   Trantorians hierarchy by elevating to higher levels.
 
 
@@ -24,7 +24,7 @@ ZAPPY DOCUMENTATION EN
    - checking their inventory
    - laying eggs
    - ejecting other Trantorians
-  see COMMANDS for furter information.
+  see "4/ COMMANDS" for further information.
 
   To get to the next level, Trantorians must "elevate", which requirements can be found below:
   +-------+---------+----------+-----------+-------+----------+--------+----------+
@@ -45,7 +45,7 @@ ZAPPY DOCUMENTATION EN
  a) PROJECT
   The server is coded in C.
   The client is coded in Python.
-  They commmunicate using TCP sockets.
+  They communicate using TCP sockets.
   The graphical interface is coded in SFML and C++.
   The project is compiled with a Makefile (under Linux).
   It produces 2 binaries: zappy_server & zappy_client
@@ -57,7 +57,7 @@ ZAPPY DOCUMENTATION EN
    - width is the width of the world
    - height is the height of the world
    - nameX is the name of the team X
-   - clientsNb is the number of authorized clients per team
+   - clientsNb is the number of authorised clients per team
    - freq is the reciprocal of time unit for execution of actions
 
   client usage:
@@ -76,7 +76,7 @@ ZAPPY DOCUMENTATION EN
   Trantorians can look in a cone in front of them.
 
 
-4/ COMMANDS:
+4/ COMMANDS
 
   A Command is a character string followed by a new line.
 
