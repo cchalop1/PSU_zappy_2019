@@ -7,6 +7,16 @@
 
 #include "server.h"
 
+// void print_map(server_t* server)
+// {
+//     for (int y = 0; y < server->map.y_max; y++) {
+//         for (int x = 0; x < server->map.x_max; x++) {
+//             printf("[%d] ", server->map.tiles[y][x].fruit);
+//         }
+//         printf("\n");
+//     }
+// }
+
 static void fill_map_fruits(server_t* server)
 {
     for (int y = 0; y < server->map.y_max; y++) {

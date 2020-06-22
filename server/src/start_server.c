@@ -49,6 +49,8 @@ int manage_client(server_t* server)
             if (player == NULL)
                 return EXIT_FAILURE;
             handle_client_cmd(server, player);
+            // print_map(server);
+            // printf("\n");
         }
     return EXIT_SUCCESS;
 }
