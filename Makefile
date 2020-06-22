@@ -7,6 +7,8 @@
 
 
 all:  server
+		cp ./client/zappy_ai ./zappy_ai
+		chmod +x ./zappy_ai
 
 server:
 		make -C server
@@ -16,6 +18,7 @@ clean:
 
 fclean: clean
 		make -C server fclean
+		@rm -f ./zappy_ai
 
 client:
 

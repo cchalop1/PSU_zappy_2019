@@ -1,6 +1,6 @@
-from client.ai_actions import ai_actions, act_dur, recipe, stones
-from client.ai_stats import ai_stats
-from client.path import path
+from ai_actions import ai_actions, act_dur, recipe, stones
+from ai_stats import ai_stats
+from path import path
 from math import sqrt, floor
 import random as rd
 import time
