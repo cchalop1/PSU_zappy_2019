@@ -61,6 +61,8 @@ server_t parse_server_input(int argc, const char** argv)
     server.freq = 100;
     server.jobs = NULL;
     server.count_teams = 0;
+    server.map.x_max = 10;
+    server.map.y_max = 10;
     while ((opt = getopt(argc, (char** const)argv, "p:x:y:n:c:f:")) != -1) {
         fill_server_struct(&server, opt, argv);
     }
